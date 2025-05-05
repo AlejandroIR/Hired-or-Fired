@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
+        owner?.ResetFire();
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
@@ -26,7 +27,6 @@ public class Bullet : MonoBehaviour
 
     private void DestroySelf()
     {
-        owner?.ResetFire();
         Destroy(gameObject);
     }
 }

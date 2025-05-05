@@ -4,13 +4,24 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class RevolverVR : MonoBehaviour
 {
-    [Header("References")]
+
+    [Header("Configuration")]
     public Transform muzzleTransform;
     public GameObject bulletPrefab;
-
-    [Header("Shooting")]
     public float bulletSpeed = 50f;
-    public bool hasFired = false;
+
+    [Header("Balas del tambor")]
+    public GameObject[] bulletMeshes = new GameObject[6];
+
+    private int maxAmmo;
+    private int currentAmmo;
+    private bool hasFired = false;
+
+    private void Start()
+    {
+        maxAmmo = bulletMeshes.Length;
+        ReloadMagazine();
+    }
 
     private void Update()
     {
@@ -21,13 +32,18 @@ public class RevolverVR : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (context.performed && !hasFired)
-            Fire();
+        if (context.performed && !hasFired) Fire();
     }
 
     private void Fire()
     {
         hasFired = true;
+        currentAmmo--;
+
+        if (currentAmmo >= 0 && currentAmmo < bulletMeshes.Length)
+        {
+            bulletMeshes[currentAmmo].SetActive(false);
+        }
 
         GameObject bulletGO = Instantiate(bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
 
@@ -38,9 +54,23 @@ public class RevolverVR : MonoBehaviour
             bulletScript.Init(this);
         }
     }
-
     public void ResetFire()
     {
         hasFired = false;
+
+        if (currentAmmo <= 0)
+        {
+            ReloadMagazine();
+        }
+    }
+
+    private void ReloadMagazine()
+    {
+        currentAmmo = maxAmmo;
+        for (int i = 0; i < bulletMeshes.Length; i++)
+        {
+            if (bulletMeshes[i] != null)
+                bulletMeshes[i].SetActive(true);
+        }
     }
 }
