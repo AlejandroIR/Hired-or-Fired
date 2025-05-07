@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnNextNPC());
+        Debug.Log("Spawn NPC");
     }
 
     public void Hire()
