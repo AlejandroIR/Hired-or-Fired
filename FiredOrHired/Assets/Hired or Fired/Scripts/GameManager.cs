@@ -33,7 +33,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Eliminado");
 
         currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
-        Destroy(currentNPC, 5f);
+        StartCoroutine(HandleFireDelay());
+    }
+
+    IEnumerator HandleFireDelay()
+    {
+        yield return new WaitForSeconds(2f);
+
+        Destroy(currentNPC);
         StartCoroutine(SpawnNextNPC());
     }
 
