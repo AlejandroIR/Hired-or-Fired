@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Eliminado");
 
-        Destroy(currentNPC);
+        currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
+        Destroy(currentNPC, 5f);
         StartCoroutine(SpawnNextNPC());
     }
 
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject npcToSpawn = npcPrefabs[currentNPCIndex];
-        currentNPC = Instantiate(npcToSpawn, npcSpawnPoint.position, Quaternion.identity);
+        currentNPC = Instantiate(npcToSpawn, npcSpawnPoint.position, npcSpawnPoint.rotation);
         currentNPCIndex++;
 
         yield return new WaitForSeconds(0.5f);
