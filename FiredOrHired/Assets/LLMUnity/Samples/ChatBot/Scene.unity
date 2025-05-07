@@ -1003,8 +1003,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ffdf71cc564806459a8771f544e7598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  witToken: TILF65OEZMWFWBSCV6UCJLKXGFT5PPTO
   audioSource: {fileID: 1538290032}
   recordButton: {fileID: 1629391540}
+  chatBot: {fileID: 180020066}
 --- !u!4 &1538290034
 Transform:
   m_ObjectHideFlags: 0

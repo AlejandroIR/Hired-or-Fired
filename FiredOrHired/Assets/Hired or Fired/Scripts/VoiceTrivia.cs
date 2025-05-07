@@ -6,6 +6,7 @@ using System.Collections;
 using System.Text.RegularExpressions;
 using System.IO;
 using System;
+using LLMUnitySamples;
 
 public class VoiceTrivia : MonoBehaviour
 {
@@ -21,6 +22,20 @@ public class VoiceTrivia : MonoBehaviour
     private string lastWavPath;
     // Ruta donde se guardó la última respuesta JSON
     private string lastJsonPath;
+
+    public ChatBot chatBot;
+    
+    private void Awake()
+    {
+        if (chatBot == null)
+        {
+            chatBot = FindObjectOfType<ChatBot>();
+            if (chatBot == null)
+            {
+                Debug.LogWarning("No se encontró ningún ChatBot en la escena. La integración de voz a chat no funcionará.");
+            }
+        }
+    }
 
     void Start()
     {
@@ -196,10 +211,30 @@ public class VoiceTrivia : MonoBehaviour
             
             string transcript = ExtractTranscriptFromResponse(response);
             Debug.Log("You said: \"" + transcript + "\"");
+            
+            SendTranscriptToChatBot(transcript);
         }
         else
         {
             Debug.LogError("Error sending to Wit.ai: " + www.error);
+        }
+    }
+    
+    private void SendTranscriptToChatBot(string transcript)
+    {
+        if (string.IsNullOrEmpty(transcript))
+        {
+            Debug.LogWarning("No se puede enviar un texto vacío al ChatBot");
+            return;
+        }
+        
+        if (chatBot != null)
+        {
+            chatBot.SetVoiceRecognizedText(transcript);
+        }
+        else
+        {
+            Debug.LogError("No se pudo enviar el texto al ChatBot. ChatBot no asignado.");
         }
     }
     

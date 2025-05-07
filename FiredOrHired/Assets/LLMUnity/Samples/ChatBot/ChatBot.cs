@@ -181,5 +181,28 @@ namespace LLMUnitySamples
                 onValidateWarning = false;
             }
         }
+        public void SetVoiceRecognizedText(string recognizedText)
+        {
+            if (string.IsNullOrEmpty(recognizedText) || blockInput)
+            {
+                Debug.LogWarning("No se puede procesar texto de voz vacío o mientras el chat está bloqueado");
+                return;
+            }
+            
+            inputBubble.SetText(recognizedText);
+            
+            StartCoroutine(SubmitVoiceInputAfterDelay(0.5f));
+        }
+        
+        private System.Collections.IEnumerator SubmitVoiceInputAfterDelay(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            
+            string message = inputBubble.GetText();
+            if (!string.IsNullOrEmpty(message))
+            {
+                onInputFieldSubmit(message);
+            }
+        }
     }
 }
