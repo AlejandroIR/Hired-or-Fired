@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.IO;
+using System;
 
 public class VoiceTrivia : MonoBehaviour
 {
@@ -12,9 +14,32 @@ public class VoiceTrivia : MonoBehaviour
     public Button recordButton;
     private AudioClip recordedClip;
     private bool isRecording = false;
+    
+    // Carpeta para guardar los archivos
+    private string saveFolderPath;
+    // Ruta donde se guardó el último archivo WAV
+    private string lastWavPath;
+    // Ruta donde se guardó la última respuesta JSON
+    private string lastJsonPath;
 
     void Start()
     {
+        // Configurar la carpeta para guardar los archivos
+        saveFolderPath = Path.Combine(Application.persistentDataPath, "VoiceRecordings");
+        
+        // Crear el directorio si no existe
+        if (!Directory.Exists(saveFolderPath))
+        {
+            Directory.CreateDirectory(saveFolderPath);
+        }
+        else
+        {
+            // Eliminar archivos WAV y JSON existentes
+            DeletePreviousRecordings();
+        }
+        
+        Debug.Log("Los archivos se guardarán en: " + saveFolderPath);
+        
         // Add button press/release event listeners
         if (recordButton != null)
         {
@@ -38,6 +63,41 @@ public class VoiceTrivia : MonoBehaviour
         else
         {
             Debug.LogError("Record Button not assigned in the inspector!");
+        }
+    }
+    
+    private void DeletePreviousRecordings()
+    {
+        try
+        {
+            // Obtener todos los archivos WAV y JSON en la carpeta
+            string[] wavFiles = Directory.GetFiles(saveFolderPath, "*.wav");
+            string[] jsonFiles = Directory.GetFiles(saveFolderPath, "*.json");
+            
+            int deletedCount = 0;
+            
+            // Eliminar archivos WAV
+            foreach (string file in wavFiles)
+            {
+                File.Delete(file);
+                deletedCount++;
+            }
+            
+            // Eliminar archivos JSON
+            foreach (string file in jsonFiles)
+            {
+                File.Delete(file);
+                deletedCount++;
+            }
+            
+            if (deletedCount > 0)
+            {
+                Debug.Log("Se eliminaron " + deletedCount + " archivos WAV y JSON anteriores.");
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error al eliminar archivos anteriores: " + ex.Message);
         }
     }
 
@@ -98,8 +158,16 @@ public class VoiceTrivia : MonoBehaviour
     {
         if (recordedClip != null && recordedClip.length > 0)
         {
+            // Generar nombre de archivo con timestamp
+            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            
+            // Guardar el archivo WAV
             byte[] wavData = SavWav.GetWavBytes(recordedClip);
-            yield return StartCoroutine(SendToWit(wavData));
+            lastWavPath = Path.Combine(saveFolderPath, "recording_" + timestamp + ".wav");
+            File.WriteAllBytes(lastWavPath, wavData);
+            Debug.Log("Archivo WAV guardado en: " + lastWavPath);
+            
+            yield return StartCoroutine(SendToWit(wavData, timestamp));
         }
         else
         {
@@ -107,7 +175,7 @@ public class VoiceTrivia : MonoBehaviour
         }
     }
 
-    IEnumerator SendToWit(byte[] wavData)
+    IEnumerator SendToWit(byte[] wavData, string timestamp)
     {
         UnityWebRequest www = new UnityWebRequest("https://api.wit.ai/speech?v=20230225", "POST");
         www.uploadHandler = new UploadHandlerRaw(wavData);
@@ -120,6 +188,12 @@ public class VoiceTrivia : MonoBehaviour
         if (www.result == UnityWebRequest.Result.Success)
         {
             string response = www.downloadHandler.text;
+            
+            // Guardar la respuesta JSON
+            lastJsonPath = Path.Combine(saveFolderPath, "response_" + timestamp + ".json");
+            File.WriteAllText(lastJsonPath, response);
+            Debug.Log("Respuesta JSON guardada en: " + lastJsonPath);
+            
             string transcript = ExtractTranscriptFromResponse(response);
             Debug.Log("You said: \"" + transcript + "\"");
         }
@@ -133,36 +207,42 @@ public class VoiceTrivia : MonoBehaviour
     {
         try
         {
-            // Buscar diferentes patrones comunes en la respuesta de Wit.ai
+            // La respuesta de Wit.ai puede contener múltiples bloques JSON
+            // Necesitamos extraer el último valor de "text" ya que este es el más completo
             
-            // Primer intento - formato estándar "text":"valor"
-            Match match = Regex.Match(jsonResponse, "\"text\"\\s*:\\s*\"([^\"]*)\"");
-            if (match.Success)
+            // Obtener todas las coincidencias de "text":"valor"
+            MatchCollection matches = Regex.Matches(jsonResponse, "\"text\"\\s*:\\s*\"([^\"]*)\"");
+            
+            if (matches.Count > 0)
             {
-                return match.Groups[1].Value;
+                // Usar la última coincidencia (la más completa)
+                return matches[matches.Count - 1].Groups[1].Value;
             }
             
-            // Segundo intento - formato "text" con posibles espacios
-            match = Regex.Match(jsonResponse, "text[\"']?\\s*:\\s*[\"']([^\"']*)[\"']");
-            if (match.Success)
+            // Intentar con formato alternativo si no hay coincidencias
+            matches = Regex.Matches(jsonResponse, "text[\"']?\\s*:\\s*[\"']([^\"']*)[\"']");
+            if (matches.Count > 0)
             {
-                return match.Groups[1].Value;
+                return matches[matches.Count - 1].Groups[1].Value;
             }
             
             // Si hay "transcript" en lugar de "text"
-            match = Regex.Match(jsonResponse, "\"transcript\"\\s*:\\s*\"([^\"]*)\"");
-            if (match.Success)
+            matches = Regex.Matches(jsonResponse, "\"transcript\"\\s*:\\s*\"([^\"]*)\"");
+            if (matches.Count > 0)
             {
-                return match.Groups[1].Value;
+                return matches[matches.Count - 1].Groups[1].Value;
             }
             
-            // Si ninguno coincide, mostrar parte del JSON para debug
+            // Mostrar parte del JSON para debug
+            Debug.Log("JSON completo: " + jsonResponse);
             return "No se pudo extraer (fragmento: " + 
                    (jsonResponse.Length > 100 ? jsonResponse.Substring(0, 100) + "..." : jsonResponse) + 
                    ")";
         }
         catch (System.Exception e)
         {
+            Debug.LogError("Error al analizar la respuesta JSON: " + e.Message);
+            Debug.Log("JSON con problemas: " + jsonResponse);
             return "Error al analizar la respuesta: " + e.Message;
         }
     }
