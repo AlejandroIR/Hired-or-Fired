@@ -8,7 +8,7 @@ using System.IO;
 using System;
 using LLMUnitySamples;
 
-public class VoiceTrivia : MonoBehaviour
+public class VoiceManager : MonoBehaviour
 {
     public string witToken = "TILF65OEZMWFWBSCV6UCJLKXGFT5PPTO";
     public AudioSource audioSource;
@@ -25,6 +25,13 @@ public class VoiceTrivia : MonoBehaviour
 
     public ChatBot chatBot;
     
+    // Agregamos referencia al NpcManager
+    public NpcManager npcManager;
+    
+    // Sistema de eventos para reconocimiento de voz
+    public delegate void SpeechRecognizedDelegate(string recognizedText);
+    public event SpeechRecognizedDelegate OnSpeechRecognized;
+    
     private void Awake()
     {
         if (chatBot == null)
@@ -34,6 +41,11 @@ public class VoiceTrivia : MonoBehaviour
             {
                 Debug.LogWarning("No se encontró ningún ChatBot en la escena. La integración de voz a chat no funcionará.");
             }
+        }
+        
+        if (npcManager == null)
+        {
+            npcManager = FindObjectOfType<NpcManager>();
         }
     }
 
@@ -228,14 +240,33 @@ public class VoiceTrivia : MonoBehaviour
             return;
         }
         
+        // Opción 1: Usar el sistema de eventos
+        // Si hay suscriptores al evento OnSpeechRecognized (como el NpcManager), 
+        // enviamos el texto a través del evento
+        if (OnSpeechRecognized != null)
+        {
+            OnSpeechRecognized.Invoke(transcript);
+            return;
+        }
+        
+        // Opción 2: Llamar directamente al NpcManager
+        // Solo si no hay suscriptores al evento, intentamos enviar
+        // directamente al NpcManager
+        if (npcManager != null)
+        {
+            npcManager.OnSpeechRecognized(transcript);
+            return;
+        }
+        
+        // Opción 3: Compatibilidad con el ChatBot existente
+        // Solo como último recurso
         if (chatBot != null)
         {
             chatBot.SetVoiceRecognizedText(transcript);
+            return;
         }
-        else
-        {
-            Debug.LogError("No se pudo enviar el texto al ChatBot. ChatBot no asignado.");
-        }
+        
+        Debug.LogError("No se pudo enviar el texto reconocido. No hay receptores configurados.");
     }
     
     private string ExtractTranscriptFromResponse(string jsonResponse)
