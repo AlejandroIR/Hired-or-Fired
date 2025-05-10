@@ -36,6 +36,9 @@ public class DialogueUI : MonoBehaviour
     private string currentMessage;
     private float startDialogueDelayTimer;
 
+    private int dialogueStage = 0;
+    private bool shouldAdvanceDialogueStage = false;
+
     private DialogueCharacter character;
 
     [Header("References")]
@@ -121,6 +124,7 @@ public class DialogueUI : MonoBehaviour
 
     public void StartDialogue(DialogueManager _dialogueManager)
     {
+        dialogueStage = 0;
         //Delay timer
         startDialogueDelayTimer = 0.1f;
 
@@ -140,6 +144,7 @@ public class DialogueUI : MonoBehaviour
         portrait.sprite = _dialogueCharacter.characterPhoto;
         nameText.text = _dialogueCharacter.characterName;
         currentMessage = _message;
+        character = _dialogueCharacter;
 
         if (animateText)
         {
@@ -201,6 +206,12 @@ public class DialogueUI : MonoBehaviour
             {
                 typing = false;
 
+                if (shouldAdvanceDialogueStage)
+                {
+                    dialogueStage++;
+                    shouldAdvanceDialogueStage = false;
+                }
+
                 ShowResponses();
             }
 
@@ -213,21 +224,39 @@ public class DialogueUI : MonoBehaviour
     {
         responseUI.SetActive(true);
 
-        string[] responses = new string[]
+        string[] responses;
+
+        if (dialogueStage == 0)
         {
-        character.Response_11,
-        character.Response_12,
-        character.Response_13
-        };
+            responses = new string[]
+            {
+            character.Response_11,
+            character.Response_12,
+            character.Response_13
+            };
+        }
+        else if (dialogueStage == 1)
+        {
+            responses = new string[]
+            {
+            character.Response_21,
+            character.Response_22,
+            character.Response_23
+            };
+        }
+        else
+        {
+            responses = new string[0];
+        }
 
         for (int i = 0; i < responseButtons.Length; i++)
         {
-            if (!string.IsNullOrEmpty(responses[i]))
+            if (i < responses.Length && !string.IsNullOrEmpty(responses[i]))
             {
                 responseButtons[i].gameObject.SetActive(true);
                 responseTexts[i].text = responses[i];
 
-                int index = i; // necesario para evitar closure bug en los listeners
+                int index = i; // evitar bug de closure
                 responseButtons[i].onClick.RemoveAllListeners();
                 responseButtons[i].onClick.AddListener(() => OnResponseSelected(index));
             }
@@ -243,17 +272,36 @@ public class DialogueUI : MonoBehaviour
         responseUI.SetActive(false);
 
         string message = "";
-        switch (index)
+
+        if (dialogueStage == 0)
         {
-            case 0: message = currentDialogueManager.GetCurrentCharacter().Message_11; break;
-            case 1: message = currentDialogueManager.GetCurrentCharacter().Message_12; break;
-            case 2: message = currentDialogueManager.GetCurrentCharacter().Message_12; break;
+            switch (index)
+            {
+                case 0: message = character.Message_11; break;
+                case 1: message = character.Message_12; break;
+                case 2: message = character.Message_12; break;
+            }
+
+            shouldAdvanceDialogueStage = true;
+            ShowSentence(character, message);
+
         }
+        else if (dialogueStage == 1)
+        {
+            switch (index)
+            {
+                case 0: message = character.Message_21; break;
+                case 1: message = character.Message_22; break;
+                case 2: message = ""; break; // Puedes añadir Message_23 si lo agregas
+            }
 
-        ShowSentence(currentDialogueManager.GetCurrentCharacter(), message);
+            shouldAdvanceDialogueStage = false;
+            ShowSentence(character, message);
+            dialogueStage = 2; // diálogo finalizado
+
+           
+        }
     }
-
-
 
 }
 
