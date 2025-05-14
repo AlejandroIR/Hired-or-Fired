@@ -10642,6 +10642,10 @@ PrefabInstance:
       propertyPath: triggerRightAction
       value: 
       objectReference: {fileID: -2439264783773714294, guid: 0be0028c24f2a4c14a96b6aa39055933, type: 3}
+    - target: {fileID: 6172904789185603719, guid: 6b392d3e150cca440b7ae2aed050551e, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
