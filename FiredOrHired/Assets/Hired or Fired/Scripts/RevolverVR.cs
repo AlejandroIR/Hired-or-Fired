@@ -35,7 +35,7 @@ public class RevolverVR : MonoBehaviour
         if (context.performed && !hasFired) Fire();
     }
 
-    private void Fire()
+    public void Fire()
     {
         hasFired = true;
         currentAmmo--;
