@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterPhoto: {fileID: 21300000, guid: 22ff77af95bedb541aca3a0977c1c25b, type: 3}
   characterName: Jason Moore
-  startMessage: "Jason Moore. Quiero saber si eres \xFAtil... o un problema. Voy
-    a hacerte unas preguntas. Contesta bien y puede que salgas vivo..."
+  startMessage: Processing...
   nodes:
   - message: "Jason Moore. Quiero saber si eres \xFAtil... o un problema. Voy a hacerte
       unas preguntas. Contesta bien y puede que salgas vivo..."
@@ -23,9 +22,9 @@ MonoBehaviour:
     - optionText: "\xBFD\xF3nde estuviste la noche del 16 de noviembre de 2007?"
       nextNodeIndex: 1
     - optionText: "\xBFQu\xE9 significa \"facilitador\"?"
-      nextNodeIndex: 0
+      nextNodeIndex: 3
     - optionText: "\xBFPor qu\xE8 no sabemos casi nada de ti?"
-      nextNodeIndex: 0
+      nextNodeIndex: 5
   - message: Caminaba cerca de esa casa. Recuerdo las sirenas al rato. Fue una sobredosis,
       eso dijeron los informes.
     options:
@@ -33,15 +32,104 @@ MonoBehaviour:
         11:14?"
       nextNodeIndex: 2
     - optionText: "\xBFCasualidad que justo \"paseabas\" por all\xED?"
-      nextNodeIndex: 0
+      nextNodeIndex: 9
     - optionText: "\xBFT\xFA limpiaste esa escena?"
-      nextNodeIndex: 0
+      nextNodeIndex: 10
   - message: "Pas\xE9 cerca. Esa casa estaba sucia, s\xED. Pero no hice nada malo.
       Lo que ocurri\xF3 ah\xED... fue antes."
     options:
-    - optionText: 
-      nextNodeIndex: 0
-    - optionText: 
-      nextNodeIndex: 0
-    - optionText: 
-      nextNodeIndex: 0
+    - optionText: "\xBFQu\xE9 significa \"facilitador\"?"
+      nextNodeIndex: 3
+    - optionText: "\xBFCasualidad que justo \"paseabas\" por all\xED?"
+      nextNodeIndex: 9
+    - optionText: "\xBFT\xFA limpiaste esa escena?"
+      nextNodeIndex: 10
+  - message: Hago que los problemas desaparezcan. Personas, pruebas, tensiones. Sin
+      rastro.
+    options:
+    - optionText: "\xBFT\xFA limpiaste la escena del 2007?"
+      nextNodeIndex: 11
+    - optionText: "\xBFCu\xE1ntos cuerpos has hecho desaparecer?"
+      nextNodeIndex: 4
+    - optionText: "Dame un ejemplo de un trabajo dif\xEDcil que resolviste."
+      nextNodeIndex: 12
+  - message: "No llevo la cuenta. Cada n\xFAmero es un testigo menos."
+    options:
+    - optionText: "\xBFT\xFA limpiaste la escena del 2007?"
+      nextNodeIndex: 11
+    - optionText: "Dame un ejemplo de un trabajo dif\xEDcil que resolviste"
+      nextNodeIndex: 12
+    - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?"
+      nextNodeIndex: 5
+  - message: "Porque as\xED lo quiero. Trabajo mejor en las sombras. Los que me conocen
+      no hablan."
+    options:
+    - optionText: "\xBFY si te mato ahora, alguien vendr\xE1 a buscarte?"
+      nextNodeIndex: 6
+    - optionText: "\xBFEste n\xFAmero que dejaste es de alguien que puede hablar
+        por ti?"
+      nextNodeIndex: 7
+    - optionText: "No confiar en alguien invisible es razonable, \xBFno?"
+      nextNodeIndex: 8
+  - message: "Entonces estar\xE1s muerto en una semana. Pero no por m\xED."
+    options:
+    - optionText: "\xBFEste n\xFAmero que dejaste es de alguien que puede hablar
+        por ti?"
+      nextNodeIndex: 7
+    - optionText: "No confiar en alguien invisible es razonable, \xBFno?"
+      nextNodeIndex: 8
+    - optionText: "\xBFD\xF3nde estuviste la noche del 16 de noviembre de 2007?"
+      nextNodeIndex: 1
+  - message: "Es un excompa\xF1ero. Puede confirmar qui\xE9n soy. O no."
+    options:
+    - optionText: "\xBFY si te mato ahora, alguien vendr\xE1 a buscarte?"
+      nextNodeIndex: 6
+    - optionText: "No confiar en alguien invisible es razonable, \xBFno?"
+      nextNodeIndex: 8
+    - optionText: "\xBFD\xF3nde estuviste la noche del 16 de noviembre de 2007?"
+      nextNodeIndex: 1
+  - message: Lo invisible no se ve venir. Esa es su ventaja.
+    options:
+    - optionText: "\xBFD\xF3nde estuviste la noche del 16 de noviembre de 2007?"
+      nextNodeIndex: 1
+    - optionText: "\xBFEste n\xFAmero que dejaste es de alguien que puede hablar
+        por ti?"
+      nextNodeIndex: 7
+    - optionText: "\xBFY si te mato ahora, alguien vendr\xE1 a buscarte?"
+      nextNodeIndex: 6
+  - message: "No creo en casualidades. Pero tampoco en dejar pruebas. Si fuera culpable,
+      no habr\xEDa foto."
+    options:
+    - optionText: "\xBFT\xFA limpiaste esa escena?"
+      nextNodeIndex: 10
+    - optionText: "\xBFY por qu\xE9 apareces en una foto saliendo de all\xED a las
+        11:14 PM??"
+      nextNodeIndex: 2
+    - optionText: "\xBFQu\xE9 significa \"facilitador\"?"
+      nextNodeIndex: 3
+  - message: "No toqu\xE9 esa casa. Y si lo hubiera hecho, nadie lo sabr\xEDa."
+    options:
+    - optionText: "\xBFY por qu\xE9 apareces en una foto saliendo de all\xED a las
+        11:14 PM??"
+      nextNodeIndex: 2
+    - optionText: "\xBFCasualidad que justo \"paseabas\" por all\xED?"
+      nextNodeIndex: 9
+    - optionText: "\xBFQu\xE9 significa \"facilitador\"?"
+      nextNodeIndex: 3
+  - message: "No. Pero lo podr\xEDa haber hecho mejor que quien lo hizo."
+    options:
+    - optionText: "\xBFCu\xE1ntos cuerpos has hecho desaparecer??"
+      nextNodeIndex: 4
+    - optionText: "Dame un ejemplo de un trabajo dif\xEDcil que resolviste."
+      nextNodeIndex: 12
+    - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?"
+      nextNodeIndex: 5
+  - message: "Un combate iba a cantar. En 3 d\xEDas, no solo desapareci\xF3 \xE9l.
+      Su oficina parec\xEDa nunca haber existido."
+    options:
+    - optionText: "\xBFT\xFA limpiaste esa escena?"
+      nextNodeIndex: 11
+    - optionText: "\xBFCu\xE1ntos cuerpos has hecho desaparecer??"
+      nextNodeIndex: 4
+    - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?"
+      nextNodeIndex: 5

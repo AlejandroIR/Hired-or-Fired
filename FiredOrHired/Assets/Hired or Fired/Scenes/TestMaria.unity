@@ -15382,6 +15382,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 41615563614080019, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.1664996
+      objectReference: {fileID: 0}
+    - target: {fileID: 41615563614080019, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.1664996
+      objectReference: {fileID: 0}
+    - target: {fileID: 41615563614080019, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.1664996
+      objectReference: {fileID: 0}
+    - target: {fileID: 41615563614080019, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -561
+      objectReference: {fileID: 0}
+    - target: {fileID: 41615563614080019, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 509352260715387041, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 966033456251053452, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -15707,7 +15731,8 @@ PrefabInstance:
       value: Dialogue UI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2818824613473117776, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
