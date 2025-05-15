@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63496424a67b8b48bd1025f943d9e52, type: 3}
+  m_Name: Jason Moore
+  m_EditorClassIdentifier: 
+  characterPhoto: {fileID: 21300000, guid: 22ff77af95bedb541aca3a0977c1c25b, type: 3}
+  characterName: Jason Moore
+  startMessage: "Jason Moore. Quiero saber si eres \xFAtil... o un problema. Voy
+    a hacerte unas preguntas. Contesta bien y puede que salgas vivo..."
+  nodes:
+  - message: "Jason Moore. Quiero saber si eres \xFAtil... o un problema. Voy a hacerte
+      unas preguntas. Contesta bien y puede que salgas vivo..."
+    options:
+    - optionText: "\xBFD\xF3nde estuviste la noche del 16 de noviembre de 2007?"
+      nextNodeIndex: 1
+    - optionText: "\xBFQu\xE9 significa \"facilitador\"?"
+      nextNodeIndex: 0
+    - optionText: "\xBFPor qu\xE8 no sabemos casi nada de ti?"
+      nextNodeIndex: 0
+  - message: Caminaba cerca de esa casa. Recuerdo las sirenas al rato. Fue una sobredosis,
+      eso dijeron los informes.
+    options:
+    - optionText: "\xBFY por qu\xE9 apareces en una foto saliendo de all\xED a las
+        11:14?"
+      nextNodeIndex: 2
+    - optionText: "\xBFCasualidad que justo \"paseabas\" por all\xED?"
+      nextNodeIndex: 0
+    - optionText: "\xBFT\xFA limpiaste esa escena?"
+      nextNodeIndex: 0
+  - message: "Pas\xE9 cerca. Esa casa estaba sucia, s\xED. Pero no hice nada malo.
+      Lo que ocurri\xF3 ah\xED... fue antes."
+    options:
+    - optionText: 
+      nextNodeIndex: 0
+    - optionText: 
+      nextNodeIndex: 0
+    - optionText: 
+      nextNodeIndex: 0
