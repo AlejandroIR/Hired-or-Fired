@@ -30,6 +30,15 @@ public class RevolverVR : MonoBehaviour
     public float recoilDuration = 0.1f;
     public float recoilRotation = 3f;
 
+    [Header("Visual Efects")]
+    public ParticleSystem muzzleFlash;
+    public AudioClip gunshotSound;
+    public AudioClip hammerPullSound;
+    public AudioClip triggerClickSound;
+    public AudioClip cylinderSpinSound;
+    public AudioClip reloadSound;
+    private AudioSource audioSource;
+
     private bool isHammerPulled = false;
     private bool isFiring = false;
     private bool isReloading = false;
@@ -37,6 +46,14 @@ public class RevolverVR : MonoBehaviour
 
     private int currentChamber = 0;
     private float currentRotation = 0f;
+
+    void Awake()
+    {
+        //audio
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null) audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1.0f;
+    }
 
     private void Update()
     {
@@ -51,6 +68,9 @@ public class RevolverVR : MonoBehaviour
     {
         if (!isHammerPulled && !isFiring)
         {
+            //visual effectes
+            audioSource.PlayOneShot(hammerPullSound);
+
             StartCoroutine(AnimateHammer(hammerAngle, 0.2f));
             isHammerPulled = true;
         }
@@ -68,6 +88,10 @@ public class RevolverVR : MonoBehaviour
     {
         if (!bulletMeshes[currentChamber].activeSelf) return;
 
+        // VisualEfects
+        if (muzzleFlash != null) muzzleFlash.Play();
+        if (gunshotSound != null) audioSource.PlayOneShot(gunshotSound);
+
         bulletMeshes[currentChamber].SetActive(false);
         InstantiateBullet();
         StartCoroutine(RecoilAnimation());
@@ -83,6 +107,9 @@ public class RevolverVR : MonoBehaviour
 
     private IEnumerator RotateCylinderCoroutine()
     {
+        //visualEffects
+        audioSource.PlayOneShot(cylinderSpinSound);
+
         isRotating = true;
         float targetRotation = currentRotation + rotationAngle;
 
@@ -108,6 +135,9 @@ public class RevolverVR : MonoBehaviour
     private IEnumerator ReloadAnimation()
     {
         isReloading = true;
+
+        //visual effects
+        audioSource.PlayOneShot(reloadSound);
 
         yield return StartCoroutine(SpinCylinder());
         ReloadMagazine();
@@ -167,8 +197,11 @@ public class RevolverVR : MonoBehaviour
 
     private IEnumerator AnimateTrigger(float angle, float duration)
     {
+        //visual effects
+        audioSource.PlayOneShot(triggerClickSound); 
+
         Quaternion startRot = trigger.localRotation;
-        Quaternion targetRot = Quaternion.Euler(0, 0, angle);
+        Quaternion targetRot = Quaternion.Euler(angle, 0, 0);
 
         float elapsed = 0f;
         while (elapsed < duration)

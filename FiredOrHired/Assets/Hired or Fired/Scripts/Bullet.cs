@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     [Header("Estadisticaa")]
     public float speed = 15f;
     public float lifetime = 2f;
+    public ParticleSystem impactEffect;
 
     private RevolverVR owner;
 
@@ -16,7 +17,6 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        //owner?.ResetFire();
         StartCoroutine(EnableCollider());
 
         Collider col = GetComponent<Collider>();
@@ -28,14 +28,21 @@ public class Bullet : MonoBehaviour
         Invoke(nameof(DestroySelf), lifetime);
     }
 
-    private void DestroySelf()
-    {
-        Destroy(gameObject);
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Revolver")) return;
+
+        if (impactEffect != null)
+        {
+            ParticleSystem effect = Instantiate(impactEffect, collision.contacts[0].point, Quaternion.identity);
+
+            effect.transform.forward = collision.contacts[0].normal;
+            effect.Play();
+
+            float destroyTime = effect.main.duration + effect.main.startLifetime.constant;
+            Destroy(effect.gameObject, destroyTime);
+        }
+
         DestroySelf();
     }
 
@@ -45,4 +52,10 @@ public class Bullet : MonoBehaviour
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = true;
     }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
 }
