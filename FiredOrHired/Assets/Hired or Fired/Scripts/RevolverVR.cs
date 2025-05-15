@@ -1,76 +1,226 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
 
 public class RevolverVR : MonoBehaviour
 {
-
     [Header("Configuration")]
     public Transform muzzleTransform;
     public GameObject bulletPrefab;
     public float bulletSpeed = 50f;
 
-    [Header("Balas del tambor")]
+    [Header("Cargador")]
+    public Transform cylinderTransform;
+    public float rotationDuration = 0.2f;
+    public float rotationAngle = 60f;
     public GameObject[] bulletMeshes = new GameObject[6];
 
-    private int maxAmmo;
-    private int currentAmmo;
-    private bool hasFired = false;
+    [Header("Trigger")]
+    public Transform hammer;
+    public float hammerAngle = 35f;
+    public Transform trigger;
+    public float triggerAngle = 15f;
 
-    private void Start()
-    {
-        maxAmmo = bulletMeshes.Length;
-        ReloadMagazine();
-    }
+    [Header("Recarga")]
+    public float reloadSpinSpeed = 360f;
+
+    [Header("Recoil")]
+    public float recoilDistance = 0.05f;
+    public float recoilDuration = 0.1f;
+    public float recoilRotation = 3f;
+
+    private bool isHammerPulled = false;
+    private bool isFiring = false;
+    private bool isReloading = false;
+    private bool isRotating = false;
+
+    private int currentChamber = 0;
+    private float currentRotation = 0f;
 
     private void Update()
     {
-        // disparar tecla E
-        if (!hasFired && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
-            Fire();
+        //Para debug disparar con ESPACIO y luego E
+        //TODO: Cambiar para mandos VR
+        if (Keyboard.current.spaceKey.wasPressedThisFrame) PullHammer();
+        if (Keyboard.current.eKey.wasPressedThisFrame) PullTrigger();
     }
 
-    public void OnFire(InputAction.CallbackContext context)
+    // ==================== DISPARO ====================
+    public void PullHammer()
     {
-        if (context.performed && !hasFired) Fire();
+        if (!isHammerPulled && !isFiring)
+        {
+            StartCoroutine(AnimateHammer(hammerAngle, 0.2f));
+            isHammerPulled = true;
+        }
+    }
+
+    public void PullTrigger()
+    {
+        if (isHammerPulled && !isFiring)
+        {
+            StartCoroutine(TriggerPullSequence());
+        }
     }
 
     public void Fire()
     {
-        hasFired = true;
-        currentAmmo--;
+        if (!bulletMeshes[currentChamber].activeSelf) return;
 
-        if (currentAmmo >= 0 && currentAmmo < bulletMeshes.Length)
+        bulletMeshes[currentChamber].SetActive(false);
+        InstantiateBullet();
+        StartCoroutine(RecoilAnimation());
+        RotateCylinder();
+        currentChamber = (currentChamber + 1) % 6;
+    }
+
+    // ==================== SISTEMA DE CARGADOR ====================
+    private void RotateCylinder()
+    {
+        if (!isRotating) StartCoroutine(RotateCylinderCoroutine());
+    }
+
+    private IEnumerator RotateCylinderCoroutine()
+    {
+        isRotating = true;
+        float targetRotation = currentRotation + rotationAngle;
+
+        Quaternion startRot = cylinderTransform.localRotation;
+        Quaternion targetRot = Quaternion.Euler(0, 0, targetRotation);
+
+        float elapsed = 0f;
+        while (elapsed < rotationDuration)
         {
-            bulletMeshes[currentAmmo].SetActive(false);
+            cylinderTransform.localRotation = Quaternion.Slerp(startRot, targetRot, elapsed / rotationDuration);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
-        GameObject bulletGO = Instantiate(bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
+        cylinderTransform.localRotation = targetRot;
+        currentRotation = targetRotation % 360;
+        isRotating = false;
 
-        Bullet bulletScript = bulletGO.GetComponent<Bullet>();
-        if (bulletScript != null)
+        if (CheckEmptyChamber()) StartCoroutine(ReloadAnimation());
+    }
+
+    // ==================== SISTEMA DE RECARGA ====================
+    private IEnumerator ReloadAnimation()
+    {
+        isReloading = true;
+
+        yield return StartCoroutine(SpinCylinder());
+        ReloadMagazine();
+
+        isReloading = false;
+    }
+
+    private IEnumerator SpinCylinder()
+    {
+        float duration = 1f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
         {
-            bulletScript.speed = bulletSpeed;
-            bulletScript.Init(this);
+            cylinderTransform.Rotate(0, 0, reloadSpinSpeed * Time.deltaTime);
+            elapsed += Time.deltaTime;
+            yield return null;
         }
     }
-    public void ResetFire()
-    {
-        hasFired = false;
 
-        if (currentAmmo <= 0)
+    // ==================== ANIMACIONES ====================
+    private IEnumerator RecoilAnimation()
+    {
+        Vector3 initialPosition = transform.position;
+        Quaternion initialRotation = transform.rotation;
+
+        Vector3 recoilOffset = -muzzleTransform.forward * recoilDistance;
+        Quaternion recoilRot = Quaternion.Euler(-recoilRotation, 0, 0);
+
+        float elapsed = 0f;
+        while (elapsed < recoilDuration)
         {
-            ReloadMagazine();
+            transform.position = Vector3.Lerp(initialPosition + recoilOffset, initialPosition, elapsed / recoilDuration);
+            transform.rotation = Quaternion.Lerp(initialRotation * recoilRot, initialRotation, elapsed / recoilDuration);
+
+            elapsed += Time.deltaTime;
+            yield return null;
         }
+    }
+
+    private IEnumerator TriggerPullSequence()
+    {
+        isFiring = true;
+
+
+        yield return StartCoroutine(AnimateTrigger(triggerAngle, 0.1f));
+
+        if (isHammerPulled) Fire();
+        yield return new WaitForSeconds(0.1f);
+
+        yield return StartCoroutine(AnimateHammer(0, 0.15f));
+        yield return StartCoroutine(AnimateTrigger(0, 0.1f));
+
+        isHammerPulled = false;
+        isFiring = false;
+    }
+
+    private IEnumerator AnimateTrigger(float angle, float duration)
+    {
+        Quaternion startRot = trigger.localRotation;
+        Quaternion targetRot = Quaternion.Euler(0, 0, angle);
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            trigger.localRotation = Quaternion.Slerp(startRot, targetRot, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private IEnumerator AnimateHammer(float angle, float duration)
+    {
+        Quaternion startRot = hammer.localRotation;
+        Quaternion targetRot = Quaternion.Euler(-angle, 0, 0);
+
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            hammer.localRotation = Quaternion.Slerp(startRot, targetRot, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    // ==================== UTILIDADES ====================
+    private void InstantiateBullet()
+    {
+        GameObject bullet = Instantiate(bulletPrefab, muzzleTransform.position, muzzleTransform.rotation);
+        if (bullet.TryGetComponent(out Rigidbody rb))
+        {
+            rb.velocity = muzzleTransform.forward * bulletSpeed;
+        }
+    }
+
+    private bool CheckEmptyChamber()
+    {
+        foreach (GameObject bullet in bulletMeshes)
+        {
+            if (bullet.activeSelf) return false;
+        }
+        return true;
     }
 
     private void ReloadMagazine()
     {
-        currentAmmo = maxAmmo;
-        for (int i = 0; i < bulletMeshes.Length; i++)
+        currentChamber = 0;
+        currentRotation = 0f;
+        cylinderTransform.localRotation = Quaternion.identity;
+
+        foreach (GameObject bullet in bulletMeshes)
         {
-            if (bulletMeshes[i] != null)
-                bulletMeshes[i].SetActive(true);
+            bullet.SetActive(true);
         }
     }
 }
