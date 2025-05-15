@@ -57,6 +57,7 @@ public class DialogueUI : MonoBehaviour
 
     public void ShowNode(DialogueCharacter character, DialogueNode node)
     {
+        HideResponses();
         StopAllCoroutines();
 
         if (animateText)
@@ -100,6 +101,7 @@ public class DialogueUI : MonoBehaviour
 
     IEnumerator WriteTextToTextmesh(string _text, TextMeshProUGUI _textMeshObject)
     {
+        //HideResponses();
         typing = true;
 
         _textMeshObject.text = "";
@@ -122,10 +124,8 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-        public void ShowResponses() { 
-        
-            responsePanel.SetActive(true);
-        }
-    }
+    public void ShowResponses() { responsePanel.SetActive(true);}
+    public void HideResponses() { responsePanel.SetActive(false);}
+}
 
 

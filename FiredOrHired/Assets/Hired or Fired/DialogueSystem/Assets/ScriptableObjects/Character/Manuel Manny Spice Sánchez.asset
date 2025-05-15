@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63496424a67b8b48bd1025f943d9e52, type: 3}
+  m_Name: "Manuel Manny Spice S\xE1nchez"
+  m_EditorClassIdentifier: 
+  characterPhoto: {fileID: 21300000, guid: 22ff77af95bedb541aca3a0977c1c25b, type: 3}
+  characterName: "Manuel \"Manny Spice\" S\xE1nchez"
+  startMessage: Processing...
+  nodes:
+  - message: "Manny Spice. O est\xE1s aqu\xED para hacer dinero... O para cagarla."
+    options:
+    - optionText: "\xBFEst\xE1s buscando curro o est\xE1s buscando algo m\xE1s?"
+      nextNodeIndex: 1
+    - optionText: "Dos semanas y ya te veo trapicheando. \xBFA qui\xE9n le estabas
+        vendiendo?"
+      nextNodeIndex: 3
+    - optionText: "\xBFPor qu\xE9 deber\xEDa fiarme de un sopl\xF3n?"
+      nextNodeIndex: 5
+  - message: "Patr\xF3n, vengo a currar. Vengo a ganarme la vida con los m\xEDas.
+      Los que hablan mucho terminan mal, y yo ya aprend\xED."
+    options:
+    - optionText: "\xBFY por qu\xE9 ayudaste a la poli con los \"Golfos\"?"
+      nextNodeIndex: 2
+    - optionText: "\xBFQu\xE9 puedes ofrecernos exactamente?"
+      nextNodeIndex: 9
+    - optionText: "\xBFY si descubro que mientes?"
+      nextNodeIndex: 10
+  - message: "Eran unos ratas, jefe. Me dejaron tirado y la poli me dio salida. No
+      lo hice por ellos. Lo hice por m\xED."
+    options:
+    - optionText: "Dos semanas y ya te veo trapicheando. \xBFA qui\xE9n le estabas
+        vendiendo?"
+      nextNodeIndex: 3
+    - optionText: "\xBFQu\xE9 puedes ofrecernos exactamente?"
+      nextNodeIndex: 9
+    - optionText: "\xBFY si descubro que mientes?"
+      nextNodeIndex: 10
+  - message: "\xBFEso? Era Spice hecho en casa, jefe. Puro artesanal. Yo no paso
+      mercanc\xEDa de nadie m\xE1s desde que sal\xED."
+    options:
+    - optionText: "\xBFHecho en casa? \xBFTienes laboratorio?"
+      nextNodeIndex: 11
+    - optionText: "\xBFEse chico es de tu red?"
+      nextNodeIndex: 4
+    - optionText: "\xBFY si te digo que ese chico est\xE1 con los Red Vultures?"
+      nextNodeIndex: 12
+  - message: "Ese chaval era un favor. Le deb\xEDa una. No forma parte de nada. Ya
+      le dije que no vendiera sin permiso."
+    options:
+    - optionText: "\xBFHecho en casa? \xBFTienes laboratorio?"
+      nextNodeIndex: 11
+    - optionText: "\xBFY si te digo que ese chico est\xE1 con los Red Vultures?"
+      nextNodeIndex: 12
+    - optionText: "\xBFPor qu\xE9 deber\xEDa fiarme de un sopl\xF3n?"
+      nextNodeIndex: 5
+  - message: "\xBFSabe qu\xE9 es peor que un sopl\xF3n? Un cabr\xF3n que te deja
+      tirado. Los Golfos me jodieron, y pagaron por ello. Ahora quiero trabajar.
+      En serio."
+    options:
+    - optionText: "\xBFY si alguien m\xE1s te falla? \xBFNos vendes?"
+      nextNodeIndex: 6
+    - optionText: "\xBFLos Red Vultures saben que est\xE1s aqu\xED?"
+      nextNodeIndex: 7
+    - optionText: "\xBFTe atreves a decir eso delante de tu antigua banda?"
+      nextNodeIndex: 8
+  - message: "Si alguien me falla, se lo digo en la cara. No vuelvo a colaborar con
+      nadie m\xE1s que conmigo. Yo ya eleg\xED bando."
+    options:
+    - optionText: "\xBFLos Red Vultures saben que est\xE1s aqu\xED?"
+      nextNodeIndex: 7
+    - optionText: "\xBFTe atreves a decir eso delante de tu antigua banda?"
+      nextNodeIndex: 8
+    - optionText: "\xBFEst\xE1s buscando curro o est\xE1s buscando algo m\xE1s?"
+      nextNodeIndex: 1
+  - message: "No, patr\xF3n. Nadie sabe. Sal\xED sin mirar atr\xE1s. Si lo supieran,
+      estar\xEDa muerto."
+    options:
+    - optionText: "\xBFY si alguien m\xE1s te falla? \xBFNos vendes?"
+      nextNodeIndex: 6
+    - optionText: "\xBFTe atreves a decir eso delante de tu antigua banda?"
+      nextNodeIndex: 8
+    - optionText: "\xBFEst\xE1s buscando curro o est\xE1s buscando algo m\xE1s?"
+      nextNodeIndex: 1
+  - message: "\xA1Claro que s\xED! A uno ya se lo dije... y ahora come con pajita.
+      \xBFLe parece poco?"
+    options:
+    - optionText: "\xBFEst\xE1s buscando curro o est\xE1s buscando algo m\xE1s?"
+      nextNodeIndex: 1
+    - optionText: "\xBFLos Red Vultures saben que est\xE1s aqu\xED?"
+      nextNodeIndex: 7
+    - optionText: "\xBFTe atreves a decir eso delante de tu antigua banda?"
+      nextNodeIndex: 6
+  - message: "Conozco las calles. Los puntos, los camellos, los nervios. Puedo montar
+      una red peque\xF1a en una semana. Limpio, r\xE1pido."
+    options:
+    - optionText: "\xBFY si descubro que mientes?"
+      nextNodeIndex: 10
+    - optionText: "\xBFY por qu\xE9 ayudaste a la poli con los \"Golfos\"?"
+      nextNodeIndex: 2
+    - optionText: "Dos semanas y ya te veo trapicheando. \xBFA qui\xE9n le estabas
+        vendiendo?"
+      nextNodeIndex: 3
+  - message: "Si miento, me corto la lengua. Pero le aseguro que esta vez vengo limpio.
+      Ni los Vultures me quieren ya. Yo los jod\xED."
+    options:
+    - optionText: "\xBFY por qu\xE9 ayudaste a la poli con los \"Golfos\"?"
+      nextNodeIndex: 2
+    - optionText: "\xBFQu\xE9 puedes ofrecernos exactamente?"
+      nextNodeIndex: 9
+    - optionText: "Dos semanas y ya te veo trapicheando. \xBFA qui\xE9n le estabas
+        vendiendo?"
+      nextNodeIndex: 3
+  - message: "Un s\xF3tano prestado, unas recetas viejas y unas ganas locas. Todo
+      sin sello, jefe. Solo m\xEDo."
+    options:
+    - optionText: "\xBFEse chico es de tu red?"
+      nextNodeIndex: 4
+    - optionText: "\xBFY si te digo que ese chico est\xE1 con los Red Vultures?"
+      nextNodeIndex: 12
+    - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?\xBFPor qu\xE9 deber\xEDa
+        fiarme de un sopl\xF3n?"
+      nextNodeIndex: 5
+  - message: "\xA1\xBFQu\xE9?! \xA1\xBFEse pendejo es un buitre?! ...Yo no sab\xEDa.
+      Si lo es, lo saco yo mismo de la calle. Con los dientes."
+    options:
+    - optionText: "\xBFEst\xE1s buscando curro o est\xE1s buscando algo m\xE1s?"
+      nextNodeIndex: 1
+    - optionText: "\xBFEse chico es de tu red?"
+      nextNodeIndex: 4
+    - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?\xBFPor qu\xE9 deber\xEDa
+        fiarme de un sopl\xF3n?"
+      nextNodeIndex: 5

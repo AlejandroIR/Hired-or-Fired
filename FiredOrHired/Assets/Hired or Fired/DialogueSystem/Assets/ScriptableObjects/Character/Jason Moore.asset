@@ -124,11 +124,11 @@ MonoBehaviour:
       nextNodeIndex: 12
     - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?"
       nextNodeIndex: 5
-  - message: "Un combate iba a cantar. En 3 d\xEDas, no solo desapareci\xF3 \xE9l.
+  - message: "Un contable iba a cantar. En 3 d\xEDas, no solo desapareci\xF3 \xE9l.
       Su oficina parec\xEDa nunca haber existido."
     options:
-    - optionText: "\xBFT\xFA limpiaste esa escena?"
-      nextNodeIndex: 11
+    - optionText: "\xBFD\xF3nde estuviste la noche del 16 de noviembre de 2007?"
+      nextNodeIndex: 1
     - optionText: "\xBFCu\xE1ntos cuerpos has hecho desaparecer??"
       nextNodeIndex: 4
     - optionText: "\xBFPor qu\xE9 no sabemos casi nada de ti?"
