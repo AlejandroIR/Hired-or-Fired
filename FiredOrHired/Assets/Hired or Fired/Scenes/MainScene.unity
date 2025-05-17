@@ -3683,6 +3683,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1339325023}
     m_Modifications:
     - target: {fileID: 1583279320987844, guid: c11e16846419fec4187c29eb5856309a, type: 3}
+      propertyPath: m_TagString
+      value: Money
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583279320987844, guid: c11e16846419fec4187c29eb5856309a, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
@@ -3740,6 +3744,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1583279320987844, guid: c11e16846419fec4187c29eb5856309a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 497457702}
+    - targetCorrespondingSourceObject: {fileID: 1583279320987844, guid: c11e16846419fec4187c29eb5856309a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 497457707}
   m_SourcePrefab: {fileID: 100100000, guid: c11e16846419fec4187c29eb5856309a, type: 3}
 --- !u!4 &497457698 stripped
 Transform:
@@ -3895,6 +3902,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &497457707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146204093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc0df6bb694cce439907dc0bd71844a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &524449950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8818,7 +8837,7 @@ MonoBehaviour:
   npcPrefabs:
   - {fileID: 1087265367783640, guid: 4761d44e7c6ecda40ab25997452646cb, type: 3}
   - {fileID: 1934170204943414, guid: fa8de4bb0df5dad4eac4829270d06056, type: 3}
-  - {fileID: 1087265367783640, guid: 4761d44e7c6ecda40ab25997452646cb, type: 3}
+  - {fileID: 1903355279208026, guid: 2cf3791ad43b2b24f9a9b4e2c7687c9c, type: 3}
   npcSpawnPoint: {fileID: 591590105}
   roomLight: {fileID: 1234441477}
   npcManager: {fileID: 0}
