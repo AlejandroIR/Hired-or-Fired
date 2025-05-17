@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
 
     private RevolverVR owner;
 
+    public GameObject impactBloodEffect;
+
     public void Init(RevolverVR owner)
     {
         this.owner = owner;
@@ -35,6 +37,7 @@ public class Bullet : MonoBehaviour
         // Check if the collision is with an NPC
         if (collision.gameObject.CompareTag("NPC"))
         {
+            Debug.Log("Hit NPC: " + collision.gameObject.name);
             // Find the GameManager and trigger the Fire logic
             GameManager gameManager = FindObjectOfType<GameManager>();
             if (gameManager != null)
@@ -67,6 +70,25 @@ public class Bullet : MonoBehaviour
     private void DestroySelf()
     {
         Destroy(gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("NPC"))
+        {
+            Debug.Log("Hit NPC: " + other.gameObject.name);
+            // Find the GameManager and trigger the Fire logic
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.FireByBullet(other.gameObject);
+            }
+            if (impactBloodEffect != null)
+            {
+                Vector3 bulletPosition = transform.position;
+                Instantiate(impactBloodEffect, bulletPosition, Quaternion.identity);
+            }
+        }
     }
 
 }
