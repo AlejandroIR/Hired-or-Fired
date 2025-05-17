@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Money : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Money")) return;
-
-        if (collision.gameObject.CompareTag("NPC"))
+        if (other.CompareTag("NPC"))
         {
+            Debug.Log("Hit NPC: " + other.gameObject.name);
+            // Find the GameManager and trigger the Fire logic
             GameManager gameManager = FindObjectOfType<GameManager>();
             if (gameManager != null)
             {
