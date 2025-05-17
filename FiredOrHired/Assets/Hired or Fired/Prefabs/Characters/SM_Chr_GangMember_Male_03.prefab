@@ -4699,7 +4699,7 @@ GameObject:
   - component: {fileID: -8762712043232409768}
   m_Layer: 0
   m_Name: SM_Chr_GangMember_Male_03
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

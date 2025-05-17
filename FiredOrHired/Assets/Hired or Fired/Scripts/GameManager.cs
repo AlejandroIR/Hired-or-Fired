@@ -11,13 +11,20 @@ public class GameManager : MonoBehaviour
     public Transform npcSpawnPoint;
     public Light roomLight;
 
-    private int currentNPCIndex = 0;
+    [Header("Integration")]
+    public NpcManager npcManager;
+
+    public int currentNPCIndex = 0;
     private GameObject currentNPC;
 
     void Start()
     {
         StartCoroutine(SpawnNextNPC());
         Debug.Log("Spawn NPC");
+        
+        // Find NpcManager if not assigned
+        if (npcManager == null)
+            npcManager = FindObjectOfType<NpcManager>();
     }
 
     public void Hire()
@@ -34,6 +41,24 @@ public class GameManager : MonoBehaviour
 
         currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
         StartCoroutine(HandleFireDelay());
+    }
+
+    public void FireByBullet(GameObject hitNpc)
+    {
+        Debug.Log("NPC shot by bullet");
+        
+        // Make sure this is our current NPC
+        if (hitNpc != currentNPC)
+            return;
+            
+        // Trigger the regular fire logic
+        Fire();
+        
+        // Sync with NpcManager if available
+        if (npcManager != null)
+        {
+            npcManager.NextNpc();
+        }
     }
 
     IEnumerator HandleFireDelay()
@@ -56,15 +81,25 @@ public class GameManager : MonoBehaviour
 
         if (currentNPCIndex >= npcPrefabs.Count)
         {
-            Debug.Log("No hay m·s NPCs.");
+            Debug.Log("No hay m√°s NPCs.");
             yield break;
         }
 
         GameObject npcToSpawn = npcPrefabs[currentNPCIndex];
         currentNPC = Instantiate(npcToSpawn, npcSpawnPoint.position, npcSpawnPoint.rotation);
+        
+        // Tag the NPC for bullet collision detection
+        currentNPC.tag = "NPC";
+        
         currentNPCIndex++;
 
         yield return new WaitForSeconds(0.5f);
         roomLight.enabled = true;
+        
+        // Sync with NpcManager if available
+        if (npcManager != null && npcManager.currentNpcIndex != currentNPCIndex - 1)
+        {
+            npcManager.ChangeNpc(currentNPCIndex - 1);
+        }
     }
 }

@@ -744,7 +744,7 @@ GameObject:
   - component: {fileID: -1324444555401646209}
   m_Layer: 0
   m_Name: SM_Chr_Asian_Gangster_Male_01
-  m_TagString: Untagged
+  m_TagString: NPC
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

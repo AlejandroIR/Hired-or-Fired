@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Anchor
   - Revolver
+  - NPC
   layers:
   - Default
   - TransparentFX

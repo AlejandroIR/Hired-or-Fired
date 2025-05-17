@@ -32,6 +32,17 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Revolver")) return;
 
+        // Check if the collision is with an NPC
+        if (collision.gameObject.CompareTag("NPC"))
+        {
+            // Find the GameManager and trigger the Fire logic
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if (gameManager != null)
+            {
+                gameManager.FireByBullet(collision.gameObject);
+            }
+        }
+
         if (impactEffect != null)
         {
             ParticleSystem effect = Instantiate(impactEffect, collision.contacts[0].point, Quaternion.identity);

@@ -20,7 +20,7 @@ public class NpcData
 }
 
 public class NpcManager : MonoBehaviour
-{
+{   
     [Header("NPC Configuration")]
     public List<NpcData> availableNpcs = new List<NpcData>();
     public int currentNpcIndex = 0;
@@ -49,6 +49,9 @@ public class NpcManager : MonoBehaviour
     public bool showProcessingTimes = true;
     [Tooltip("Reduce model parameters for faster responses (lower quality)")]
     public bool optimizeForSpeed = false;
+    
+    [Header("Integration")]
+    public GameManager gameManager;
     
     // Estado interno
     private string currentPlayerInput = "";
@@ -143,7 +146,7 @@ public class NpcManager : MonoBehaviour
             yield return null;
         }
         
-        UpdateStatusText("Listo - Presiona J para hablar");
+        UpdateStatusText("Listo - Presiona el botón para hablar");
     }
     
     private void OnWarmupComplete()
@@ -160,11 +163,20 @@ public class NpcManager : MonoBehaviour
         }
         Debug.Log(status);
     }
-    
-    private void Update()
+      private void Update()
     {
         // Manejar inicio/fin de grabación con tecla J
         if (Input.GetKeyDown(recordKey) && !isProcessing && isReady)
+        {
+            ToggleRecording();
+        }
+    }
+    
+    // Método público para alternar entre iniciar/detener grabación
+    // Puede ser llamado desde un botón UI o desde otros scripts
+    public void ToggleRecording()
+    {
+        if (!isProcessing && isReady)
         {
             if (!isRecording)
                 StartRecording();
@@ -172,8 +184,7 @@ public class NpcManager : MonoBehaviour
                 StopRecording();
         }
     }
-    
-    private void StartRecording()
+      private void StartRecording()
     {
         isRecording = true;
         UpdateStatusText("Grabando...");
@@ -394,6 +405,13 @@ public class NpcManager : MonoBehaviour
         if (availableNpcs[index].npcPrefab != null)
         {
             currentNpcInstance = Instantiate(availableNpcs[index].npcPrefab, transform.position, Quaternion.identity);
+        }
+        
+        // Synchronize with GameManager if needed but avoid infinite loop
+        if (gameManager != null && gameManager.currentNPCIndex != index + 1 && !gameManager.isActiveAndEnabled)
+        {
+            // This synchronization only happens when NpcManager changes independently
+            Debug.Log("Synchronizing GameManager with NpcManager");
         }
     }
     
