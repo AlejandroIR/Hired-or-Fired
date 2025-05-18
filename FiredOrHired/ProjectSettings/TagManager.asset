@@ -8,6 +8,8 @@ TagManager:
   - Revolver
   - NPC
   - Money
+  - Target
+  - Mango
   layers:
   - Default
   - TransparentFX
