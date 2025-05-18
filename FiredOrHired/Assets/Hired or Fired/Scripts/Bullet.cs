@@ -24,9 +24,6 @@ public class Bullet : MonoBehaviour
         Collider col = GetComponent<Collider>();
         if (col != null) col.enabled = false;
 
-        Rigidbody rb = GetComponent<Rigidbody>();
-        if (rb != null) rb.velocity = transform.forward * speed;
-
         Invoke(nameof(DestroySelf), lifetime);
     }
 
