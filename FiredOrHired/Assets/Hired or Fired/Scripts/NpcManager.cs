@@ -64,7 +64,7 @@ public class NpcManager : MonoBehaviour
     {
         // Inicializar UI
         if (dialogPanel != null)
-            dialogPanel.SetActive(false);
+            dialogPanel.SetActive(true);
             
         // Configurar reconocimiento de voz
         if (voiceManager == null)

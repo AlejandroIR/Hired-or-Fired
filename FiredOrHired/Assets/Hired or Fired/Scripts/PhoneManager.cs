@@ -1,19 +1,33 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using TMPro;
+using System.Collections.Generic;
+
+
 
 public class PhoneManager : MonoBehaviour
 {
+    public GameManager gameManager;
+
+    public TMP_Text textoUI;
+    public string[] textosPorNPC;
+
     public AudioSource ringSound;
     public AudioSource pickUpSound;
     private XRGrabInteractable grabInteractable;
 
-    [SerializeField] private GameObject cosasAActivar; // Opcional, para activar algo al agarrar
+    [SerializeField] private List<GameObject> cosasAActivar;
 
     private bool yaAgarrado = false;
 
     void Start()
     {
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<GameManager>();
+        }
+
         grabInteractable = GetComponent<XRGrabInteractable>();
         ringSound.Play();
 
@@ -39,9 +53,24 @@ public class PhoneManager : MonoBehaviour
     private void EjecutarAccionDeAgarrar()
     {
         yaAgarrado = true;
+
         ringSound.Stop();
         pickUpSound.Play();
-        if (cosasAActivar != null)
-            cosasAActivar.SetActive(true);
+
+        foreach (var obj in cosasAActivar)
+        {
+            if (obj != null)
+                obj.SetActive(true);
+        }
+
+        if (textoUI != null && gameManager != null)
+        {
+            int index = gameManager.currentNPCIndex - 1; // -1 porque ya se incrementó después del spawn
+
+            if (index >= 0 && index < textosPorNPC.Length)
+                textoUI.text = textosPorNPC[index];
+            else
+                textoUI.text = "error, you fon not lingin :(";
+        }
     }
 }
