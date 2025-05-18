@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.XR;
+
 
 
 
@@ -24,6 +26,8 @@ public class PhoneManager : MonoBehaviour
     private bool yaAgarrado = false;
     private bool confirmacionHecha = false;
 
+    public GameObject button;
+
     void Start()
     {
         if (gameManager == null)
@@ -36,17 +40,18 @@ public class PhoneManager : MonoBehaviour
 
         // Detener el sonido al agarrar
         grabInteractable.selectEntered.AddListener(OnGrab);
+        button.GetComponent<XRPokeFilter>().enabled = false;
     }
 
     void Update()
     {
-        // Simulación de agarre con tecla "I"
+        // Simulaciï¿½n de agarre con tecla "I"
         if (!yaAgarrado && Input.GetKeyDown(KeyCode.I))
         {
             EjecutarAccionDeAgarrar();
         }
 
-        // Confirmar solo si ya se agarró y no se ha confirmado aún
+        // Confirmar solo si ya se agarrï¿½ y no se ha confirmado aï¿½n
         if (yaAgarrado && !confirmacionHecha)
         {
             if (Input.GetKeyDown(KeyCode.O))
@@ -54,7 +59,7 @@ public class PhoneManager : MonoBehaviour
                 Confirmar();
             }
 
-            // Confirmar con botón del mando (VR)
+            // Confirmar con botï¿½n del mando (VR)
             var devices = new List<InputDevice>();
             InputDevices.GetDevicesAtXRNode(XRNode.RightHand, devices);
 
@@ -62,7 +67,7 @@ public class PhoneManager : MonoBehaviour
             {
                 InputDevice rightHand = devices[0];
 
-                if (rightHand.TryGetFeatureValue(CommonUsages.primaryButton, out bool pressed) && pressed)
+                if (rightHand.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed) && pressed)
                 {
                     Confirmar();
                 }
@@ -86,7 +91,7 @@ public class PhoneManager : MonoBehaviour
 
         if (textoUI != null && gameManager != null)
         {
-            int index = gameManager.currentNPCIndex - 1; // -1 porque ya se incrementó después del spawn
+            int index = gameManager.currentNPCIndex - 1; // -1 porque ya se incrementï¿½ despuï¿½s del spawn
 
             if (index >= 0 && index < textosPorNPC.Length)
                 textoUI.text = textosPorNPC[index];
@@ -97,6 +102,8 @@ public class PhoneManager : MonoBehaviour
 
     private void Confirmar()
     {
+        button.GetComponent<XRPokeFilter>().enabled = true;
+
         confirmacionHecha = true;
         
         hangUpSound.Play();
@@ -112,6 +119,8 @@ public class PhoneManager : MonoBehaviour
 
     public void ResetPhone()
     {
+        button.GetComponent<XRPokeFilter>().enabled = false;
+
         yaAgarrado = false;
         confirmacionHecha = false;
 
@@ -125,7 +134,7 @@ public class PhoneManager : MonoBehaviour
                 obj.SetActive(false);
         }
 
-        ringSound.Play(); // Vuelve a sonar el teléfono
+        ringSound.Play(); // Vuelve a sonar el telï¿½fono
     }
 }
 
