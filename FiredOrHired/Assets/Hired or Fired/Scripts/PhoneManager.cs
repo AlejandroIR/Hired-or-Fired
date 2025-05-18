@@ -5,6 +5,8 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.XR;
 
+
+
 public class PhoneManager : MonoBehaviour
 {
     public GameManager gameManager;
@@ -19,46 +21,40 @@ public class PhoneManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> cosasAActivar;
 
-    private GameObject buttonActive;
-
     private bool yaAgarrado = false;
     private bool confirmacionHecha = false;
 
     void Start()
     {
-        buttonActive.GetComponent<Collider>().enabled = false;
-
         if (gameManager == null)
         {
             gameManager = FindObjectOfType<GameManager>();
         }
 
         grabInteractable = GetComponent<XRGrabInteractable>();
-
-        // Configurar sonido de llamada en loop hasta que se agarre
-        ringSound.loop = true;
         ringSound.Play();
 
+        // Detener el sonido al agarrar
         grabInteractable.selectEntered.AddListener(OnGrab);
     }
 
     void Update()
     {
-        // Simulación de agarre con teclado
+        // Simulación de agarre con tecla "I"
         if (!yaAgarrado && Input.GetKeyDown(KeyCode.I))
         {
             EjecutarAccionDeAgarrar();
         }
 
+        // Confirmar solo si ya se agarró y no se ha confirmado aún
         if (yaAgarrado && !confirmacionHecha)
         {
-            // Simulación con teclado
             if (Input.GetKeyDown(KeyCode.O))
             {
                 Confirmar();
             }
 
-            // Confirmar con botón de interacción VR (secondaryButton)
+            // Confirmar con botón del mando (VR)
             var devices = new List<InputDevice>();
             InputDevices.GetDevicesAtXRNode(XRNode.RightHand, devices);
 
@@ -66,7 +62,7 @@ public class PhoneManager : MonoBehaviour
             {
                 InputDevice rightHand = devices[0];
 
-                if (rightHand.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed) && pressed)
+                if (rightHand.TryGetFeatureValue(CommonUsages.primaryButton, out bool pressed) && pressed)
                 {
                     Confirmar();
                 }
@@ -81,22 +77,16 @@ public class PhoneManager : MonoBehaviour
 
     private void EjecutarAccionDeAgarrar()
     {
-        if (yaAgarrado) return;
-
         yaAgarrado = true;
 
-        // Detener llamada, reproducir sonido de levantar
         ringSound.Stop();
-        ringSound.loop = false; // Por si acaso se cambia al vuelo
-
-        if (!pickUpSound.isPlaying)
-            pickUpSound.Play();
+        pickUpSound.Play();
 
         textoUI.gameObject.SetActive(true);
 
         if (textoUI != null && gameManager != null)
         {
-            int index = gameManager.currentNPCIndex - 1;
+            int index = gameManager.currentNPCIndex - 1; // -1 porque ya se incrementó después del spawn
 
             if (index >= 0 && index < textosPorNPC.Length)
                 textoUI.text = textosPorNPC[index];
@@ -107,19 +97,15 @@ public class PhoneManager : MonoBehaviour
 
     private void Confirmar()
     {
-        if (confirmacionHecha) return;
-
         confirmacionHecha = true;
-
-        if (!hangUpSound.isPlaying)
-            hangUpSound.Play();
+        
+        hangUpSound.Play();
 
         foreach (var obj in cosasAActivar)
         {
             if (obj != null)
                 obj.SetActive(true);
         }
-        buttonActive.GetComponent<Collider>().enabled = true;
 
         textoUI.gameObject.SetActive(false);
     }
@@ -128,13 +114,10 @@ public class PhoneManager : MonoBehaviour
     {
         yaAgarrado = false;
         confirmacionHecha = false;
-        buttonActive.GetComponent<Collider>().enabled = false;
 
         if (textoUI != null)
-        {
             textoUI.gameObject.SetActive(true);
             textoUI.text = "you fon lingin";
-        }
 
         foreach (var obj in cosasAActivar)
         {
@@ -142,11 +125,8 @@ public class PhoneManager : MonoBehaviour
                 obj.SetActive(false);
         }
 
-        // Preparar el ring de nuevo
-        if (!ringSound.isPlaying)
-        {
-            ringSound.loop = true;
-            ringSound.Play();
-        }
+        ringSound.Play(); // Vuelve a sonar el teléfono
     }
 }
+
+
