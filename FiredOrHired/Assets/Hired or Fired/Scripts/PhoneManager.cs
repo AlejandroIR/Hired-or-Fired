@@ -27,6 +27,8 @@ public class PhoneManager : MonoBehaviour
     private bool confirmacionHecha = false;
 
     public GameObject button;
+    public MonoBehaviour pokeFilter;
+    public MonoBehaviour pokeFollowAffordance;
 
     void Start()
     {
@@ -40,7 +42,10 @@ public class PhoneManager : MonoBehaviour
 
         // Detener el sonido al agarrar
         grabInteractable.selectEntered.AddListener(OnGrab);
-        button.GetComponent<XRPokeFilter>().enabled = false;
+        // button.GetComponent<XRPokeFilter>().enabled = false;
+        // button.GetComponent<XRPokeFollowAffordance>().enabled = false;
+        pokeFilter.enabled = false;
+        pokeFollowAffordance.enabled = false;
     }
 
     void Update()
@@ -102,7 +107,10 @@ public class PhoneManager : MonoBehaviour
 
     private void Confirmar()
     {
-        button.GetComponent<XRPokeFilter>().enabled = true;
+        // button.GetComponent<XRPokeFilter>().enabled = true;
+        // button.GetComponent<XRPokeFollowAffordance>().enabled = true;
+        pokeFilter.enabled = true;
+        pokeFollowAffordance.enabled = true;
 
         confirmacionHecha = true;
         
@@ -119,7 +127,10 @@ public class PhoneManager : MonoBehaviour
 
     public void ResetPhone()
     {
-        button.GetComponent<XRPokeFilter>().enabled = false;
+        // button.GetComponent<XRPokeFilter>().enabled = false;
+        // button.GetComponent<XRPokeFollowAffordance>().enabled = false;
+        pokeFilter.enabled = false;
+        pokeFollowAffordance.enabled = false;
 
         yaAgarrado = false;
         confirmacionHecha = false;
