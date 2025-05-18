@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
+    public PhoneManager phoneManager;
+
     [Header("NPCs")]
     public List<GameObject> npcPrefabs;
 
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
         // Find NpcManager if not assigned
         if (npcManager == null)
             npcManager = FindObjectOfType<NpcManager>();
+
     }
 
     public void Hire()
@@ -33,6 +36,9 @@ public class GameManager : MonoBehaviour
 
         Destroy(currentNPC);
         StartCoroutine(SpawnNextNPC());
+
+        if (phoneManager != null)
+            phoneManager.ResetPhone();
     }
 
     public void Fire()
@@ -41,6 +47,9 @@ public class GameManager : MonoBehaviour
 
         currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
         StartCoroutine(HandleFireDelay());
+
+        if (phoneManager != null)
+            phoneManager.ResetPhone();
     }
 
     public void FireByBullet(GameObject hitNpc)
