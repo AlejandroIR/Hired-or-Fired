@@ -5646,6 +5646,8 @@ MonoBehaviour:
   cosasAActivar:
   - {fileID: 1228932544}
   button: {fileID: 770764370}
+  pokeFilter: {fileID: 752003848}
+  pokeFollowAffordance: {fileID: 770764374}
 --- !u!1 &664813848
 GameObject:
   m_ObjectHideFlags: 0
@@ -6922,6 +6924,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4922582553321831162, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
   m_PrefabInstance: {fileID: 752003847}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &770764374 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 377291013443947822, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
+  m_PrefabInstance: {fileID: 752003847}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770764370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b3638c2f5db5b479ff24c2859713d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &777110499
 PrefabInstance:
   m_ObjectHideFlags: 0
