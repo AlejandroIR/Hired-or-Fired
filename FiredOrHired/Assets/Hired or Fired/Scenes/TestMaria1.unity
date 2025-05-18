@@ -260,6 +260,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4659730583123006, guid: 95a66d60e70135e489def4952d0feba6, type: 3}
   m_PrefabInstance: {fileID: 19282236}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &34514072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895469645}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07b3638c2f5db5b479ff24c2859713d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PokeFollowTransform: {fileID: 895469639}
+  m_SmoothingSpeed: 16
+  m_ReturnToInitialPosition: 1
+  m_ApplyIfChildIsTarget: 1
+  m_ClampToMaxDistance: 0
+  m_MaxDistance: 0
+  m_PokeFilter: {fileID: 0}
 --- !u!1001 &37284191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2165,29 +2184,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4279366241788220, guid: c16bb121ebad04948852c0449cb0199d, type: 3}
   m_PrefabInstance: {fileID: 354251116}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &373218977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895469645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0908100b30fe0ab4191734ae3261431f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PokeFollowTransform: {fileID: 895469639}
-  m_PokeFill: {fileID: 895469639}
-  m_PokeFillMaxSizeX: 0
-  m_PokeFillMaxSizeY: 0
-  m_SmoothingSpeed: 8
-  m_ReturnToInitialPosition: 1
-  m_ApplyIfChildIsTarget: 1
-  m_ClampToMinDistance: 0
-  m_MinDistance: 0
-  m_ClampToMaxDistance: 0
-  m_MaxDistance: 0
 --- !u!1 &373428978
 GameObject:
   m_ObjectHideFlags: 0
@@ -7559,13 +7555,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 2548381664633043180, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 895469655}
+      addedObject: {fileID: 895469657}
     - targetCorrespondingSourceObject: {fileID: 735715447808746265, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 895469654}
+      addedObject: {fileID: 895469656}
     - targetCorrespondingSourceObject: {fileID: 1313853754142882087, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 373218977}
+      addedObject: {fileID: 34514072}
   m_SourcePrefab: {fileID: 100100000, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
 --- !u!114 &895469637 stripped
 MonoBehaviour:
@@ -7700,7 +7696,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2338578670639958159, guid: b90d7bcbaab3dec4398c715a0646e060, type: 3}
   m_PrefabInstance: {fileID: 895469636}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &895469654
+--- !u!114 &895469656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7709,21 +7705,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 895469642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0908100b30fe0ab4191734ae3261431f, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b3638c2f5db5b479ff24c2859713d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PokeFollowTransform: {fileID: 895469641}
-  m_PokeFill: {fileID: 895469641}
-  m_PokeFillMaxSizeX: 0
-  m_PokeFillMaxSizeY: 0
-  m_SmoothingSpeed: 8
+  m_SmoothingSpeed: 16
   m_ReturnToInitialPosition: 1
   m_ApplyIfChildIsTarget: 1
-  m_ClampToMinDistance: 0
-  m_MinDistance: 0
   m_ClampToMaxDistance: 0
   m_MaxDistance: 0
---- !u!114 &895469655
+  m_PokeFilter: {fileID: 0}
+--- !u!114 &895469657
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7732,20 +7724,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 895469644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0908100b30fe0ab4191734ae3261431f, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b3638c2f5db5b479ff24c2859713d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_PokeFollowTransform: {fileID: 895469643}
-  m_PokeFill: {fileID: 895469643}
-  m_PokeFillMaxSizeX: 0
-  m_PokeFillMaxSizeY: 0
-  m_SmoothingSpeed: 8
+  m_SmoothingSpeed: 16
   m_ReturnToInitialPosition: 1
   m_ApplyIfChildIsTarget: 1
-  m_ClampToMinDistance: 0
-  m_MinDistance: 0
   m_ClampToMaxDistance: 0
   m_MaxDistance: 0
+  m_PokeFilter: {fileID: 0}
 --- !u!1001 &896664605
 PrefabInstance:
   m_ObjectHideFlags: 0
