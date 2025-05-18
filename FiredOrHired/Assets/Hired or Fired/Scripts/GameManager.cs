@@ -9,15 +9,21 @@ public class GameManager : MonoBehaviour
     [Header("NPCs")]
     public List<GameObject> npcPrefabs;
 
+    [Header("Documents")]
+    public List<GameObject> documents;
+
     [Header("Spawn Settings")]
     public Transform npcSpawnPoint;
+    public Transform docSpawnPoint;
     public Light roomLight;
 
     [Header("Integration")]
     public NpcManager npcManager;
 
     public int currentNPCIndex = 0;
+    public int currentDocIndex = 0;
     private GameObject currentNPC;
+    private GameObject currentDoc;
 
     void Start()
     {
@@ -35,6 +41,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Contratado");
 
         Destroy(currentNPC);
+        Destroy(currentDoc);
         StartCoroutine(SpawnNextNPC());
 
         if (phoneManager != null)
@@ -75,6 +82,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         Destroy(currentNPC);
+        Destroy(currentDoc);
         StartCoroutine(SpawnNextNPC());
     }
 
@@ -88,6 +96,11 @@ public class GameManager : MonoBehaviour
             Destroy(currentNPC);
         }
 
+        if(currentDoc != null)
+        {
+            Destroy(currentDoc);
+        }
+
         if (currentNPCIndex >= npcPrefabs.Count)
         {
             Debug.Log("No hay más NPCs.");
@@ -96,19 +109,18 @@ public class GameManager : MonoBehaviour
 
         GameObject npcToSpawn = npcPrefabs[currentNPCIndex];
         currentNPC = Instantiate(npcToSpawn, npcSpawnPoint.position, npcSpawnPoint.rotation);
-        
+
+        GameObject docToSpawn = documents[currentDocIndex];
+        currentDoc = Instantiate(docToSpawn, docSpawnPoint.position, docSpawnPoint.rotation);
+
         // Tag the NPC for bullet collision detection
         currentNPC.tag = "NPC";
         
         currentNPCIndex++;
+        currentDocIndex++;
 
         yield return new WaitForSeconds(0.5f);
         roomLight.enabled = true;
         
-        // Sync with NpcManager if available
-        if (npcManager != null && npcManager.currentNpcIndex != currentNPCIndex - 1)
-        {
-            npcManager.ChangeNpc(currentNPCIndex - 1);
-        }
     }
 }
