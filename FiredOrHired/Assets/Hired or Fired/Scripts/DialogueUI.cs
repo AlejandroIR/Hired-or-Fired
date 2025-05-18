@@ -6,7 +6,7 @@ using System.Net.NetworkInformation;
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 
 public class DialogueUI : MonoBehaviour
 {
@@ -46,7 +46,7 @@ public class DialogueUI : MonoBehaviour
 
         HideOptions();
 
-        // Mostrar opciones iniciales después de una pequeña pausa si quieres
+        // Mostrar opciones iniciales despuï¿½s de una pequeï¿½a pausa si quieres
         Invoke(nameof(ShowInitialOptions), 1f);
     }
 

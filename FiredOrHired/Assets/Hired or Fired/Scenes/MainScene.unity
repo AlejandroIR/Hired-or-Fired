@@ -7792,16 +7792,28 @@ PrefabInstance:
       value: PhotoFrame_FBX
       objectReference: {fileID: 0}
     - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.2120574
+      objectReference: {fileID: 0}
+    - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.6179729
+      objectReference: {fileID: 0}
+    - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.6179729
+      objectReference: {fileID: 0}
+    - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 45.273
+      value: 45.285
       objectReference: {fileID: 0}
     - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28447372
+      value: 0.287
       objectReference: {fileID: 0}
     - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.735
+      value: -9.7176
       objectReference: {fileID: 0}
     - target: {fileID: 801699671995593294, guid: 9821aa4dac1e1fb47aba6e567e8ad814, type: 3}
       propertyPath: m_LocalRotation.w
