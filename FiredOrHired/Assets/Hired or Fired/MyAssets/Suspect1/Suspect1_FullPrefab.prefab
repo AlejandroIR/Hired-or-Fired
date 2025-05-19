@@ -368,6 +368,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4745972141407422967}
     m_Modifications:
+    - target: {fileID: 243657074689167172, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 243657074689167172, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 243657074689167172, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 243657074689167172, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 243657074689167172, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 2370791723422736585, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
       propertyPath: m_Name
       value: Doc_Sus1
@@ -415,6 +435,18 @@ PrefabInstance:
     - target: {fileID: 3147292860424665715, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183574139344214610, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183574139344214610, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9183574139344214610, guid: 17c83b037ccd6124bb3f4da3efe64085, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
