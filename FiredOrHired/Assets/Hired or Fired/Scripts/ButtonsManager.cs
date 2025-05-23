@@ -1,34 +1,42 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement; // Para cambiar de escena
-using UnityEngine.UI;             // Por si usas UI
-using UnityEngine.EventSystems;   // Opcional
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ButtonsManager : MonoBehaviour
 {
-    public string sceneToLoad;   
-    public AudioClip clickSound;      
-    private AudioSource audioSource;  
+    public AudioClip clickSound;
+    private AudioSource audioSource;
+    private string nextScene;
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void OnButtonClick()
+    public void PlayClickSound()
     {
         if (audioSource != null && clickSound != null)
         {
             audioSource.PlayOneShot(clickSound);
         }
-
-        StartCoroutine(LoadSceneAfterSound());
+    }
+    public void LoadSceneWithClick(string sceneName)
+    {
+        PlayClickSound();
+        StartCoroutine(LoadSceneAfterSound(sceneName));
     }
 
-    private IEnumerator LoadSceneAfterSound()
+    private IEnumerator LoadSceneAfterSound(string sceneName)
     {
         float waitTime = clickSound != null ? clickSound.length : 0.5f;
         yield return new WaitForSeconds(waitTime);
-        SceneManager.LoadScene(sceneToLoad);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void TogglePauseMenu(GameObject pauseCanvas)
+    {
+        PlayClickSound();
+        pauseCanvas.SetActive(!pauseCanvas.activeSelf);
     }
 }

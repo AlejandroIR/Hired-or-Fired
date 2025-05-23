@@ -1,0 +1,137 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e63496424a67b8b48bd1025f943d9e52, type: 3}
+  m_Name: Dulce de Leche
+  m_EditorClassIdentifier: 
+  characterPhoto: {fileID: 21300000, guid: 3d15adccf71a6aa46a5c9498c7cc891a, type: 3}
+  characterName: Dulce de Leche
+  startMessage: Processing...
+  nodes:
+  - message: "Dulce de Leche. Nombre curioso para alguien que viene de donde t\xFA
+      vienes. Dicen que quieres dejar de ser la cara bonita del barrio... Voy a hacerte
+      unas preguntas. Contesta bien, y puede que salgas viva."
+    options:
+    - optionText: "\xBFQu\xE9 hac\xEDas hablando con ese poli hace un mes?"
+      nextNodeIndex: 1
+    - optionText: "\xBFPor qu\xE9 ahora quieres ser algo m\xE1s que una cara bonita?"
+      nextNodeIndex: 3
+    - optionText: "\xBFQu\xE9 te hace pensar que puedes con este negocio?"
+      nextNodeIndex: 5
+  - message: "Ah... esa foto. Mir\xE1. fue en la esquina del 9 de Julio con Paraguay.
+      Ese cana me deb\xEDa un favor, y yo no quer\xEDa que cayera nadie de los m\xEDos
+      esa noche. No fue ch\xE1chara, fue control de da\xF1os."
+    options:
+    - optionText: "Muy c\xF3moda se te ve, \xBFno ser\xE1 que est\xE1s colaborando?"
+      nextNodeIndex: 2
+    - optionText: "\xBFY por qu\xE9 ese poli te debe favores?"
+      nextNodeIndex: 9
+    - optionText: "\xBFCrees que me voy a tragar ese cuento?"
+      nextNodeIndex: 10
+  - message: "\xBFColaborando? Si yo colaborara, ya estar\xEDas en cana vos tambi\xE9n.
+      A m\xED me gusta la calle, no los escritorios."
+    options:
+    - optionText: "\xBFPor qu\xE9 ahora quieres ser algo m\xE1s que una cara bonita?"
+      nextNodeIndex: 3
+    - optionText: "\xBFY por qu\xE9 ese poli te debe favores?"
+      nextNodeIndex: 9
+    - optionText: "\xBFCrees que me voy a tragar ese cuento?"
+      nextNodeIndex: 10
+  - message: "Porque me cans\xE9 de que me usen como cartel. Tengo neuronas, contactos
+      y huevos. Quiero respeto, no propinas."
+    options:
+    - optionText: "\xBFY qu\xE9 hiciste para ganarte ese respeto?"
+      nextNodeIndex: 11
+    - optionText: "\xBFEst\xE1s buscando poder... o protecci\xF3n?"
+      nextNodeIndex: 4
+    - optionText: "\xBFQuer\xE9s mandar o seguir siendo mandada?"
+      nextNodeIndex: 12
+  - message: "Protecci\xF3n es para los d\xE9biles. Yo quiero poder porque nadie
+      me lo regal\xF3."
+    options:
+    - optionText: "\xBFY qu\xE9 hiciste para ganarte ese respeto?"
+      nextNodeIndex: 11
+    - optionText: "\xBFQuer\xE9s mandar o seguir siendo mandada?"
+      nextNodeIndex: 12
+    - optionText: "\xBFQu\xE9 te hace pensar que puedes con este negocio?"
+      nextNodeIndex: 5
+  - message: "Yo viv\xED de la calle, dorm\xED bajo techos ajenos y me levant\xE9
+      sola. \xBFEse negocio? Me queda chico."
+    options:
+    - optionText: "\xBFQu\xE9 sab\xE9s del negocio, adem\xE1s de dar vueltas?"
+      nextNodeIndex: 6
+    - optionText: "\xBFY si la poli te cae otra vez, te vas a romper?"
+      nextNodeIndex: 7
+    - optionText: "\xBFQu\xE9 har\xEDas si uno de los nuestros te traiciona?"
+      nextNodeIndex: 8
+  - message: "S\xE9 mover cosas sin dejar huella. Y lo m\xE1s importante: s\xE9 a
+      qui\xE9n no se le puede vender."
+    options:
+    - optionText: "\xBFY si la poli te cae otra vez, te vas a romper?"
+      nextNodeIndex: 7
+    - optionText: "\xBFQu\xE9 har\xEDas si uno de los nuestros te traiciona?"
+      nextNodeIndex: 8
+    - optionText: "\xBFQu\xE9 hac\xEDas hablando con ese poli hace un mes?"
+      nextNodeIndex: 1
+  - message: "Estuve un a\xF1o adentro. Sal\xED por conducta, no por cantar. Que
+      me encierren otra vez, y salgo con m\xE1s contactos que antes."
+    options:
+    - optionText: "\xBFQu\xE9 sab\xE9s del negocio, adem\xE1s de dar vueltas?"
+      nextNodeIndex: 6
+    - optionText: "\xBFQu\xE9 har\xEDas si uno de los nuestros te traiciona?"
+      nextNodeIndex: 8
+    - optionText: "\xBFQu\xE9 hac\xEDas hablando con ese poli hace un mes?"
+      nextNodeIndex: 1
+  - message: "A los traidores se les corta el aire. Yo no olvido. Y menos si jug\xE1s
+      conmigo."
+    options:
+    - optionText: "\xBFQu\xE9 hac\xEDas hablando con ese poli hace un mes?"
+      nextNodeIndex: 1
+    - optionText: "\xBFY si la poli te cae otra vez, te vas a romper?"
+      nextNodeIndex: 7
+    - optionText: "\xBFQu\xE9 sab\xE9s del negocio, adem\xE1s de dar vueltas?"
+      nextNodeIndex: 6
+  - message: "Porque la tap\xE9 un quilombo con una mina hace a\xF1os. Desde entonces,
+      me debe una. Y yo cobro mis favores cuando conviene."
+    options:
+    - optionText: "\xBFCrees que me voy a tragar ese cuento?"
+      nextNodeIndex: 10
+    - optionText: "Muy c\xF3moda se te ve, \xBFno ser\xE1 que est\xE1s colaborando?"
+      nextNodeIndex: 2
+    - optionText: "\xBFPor qu\xE9 ahora quieres ser algo m\xE1s que una cara bonita?"
+      nextNodeIndex: 3
+  - message: "No estoy para cuentos, estoy para negocios. Si me quer\xE9s viva, que
+      sea por lo que puedo mover, no por mis palabras."
+    options:
+    - optionText: "Muy c\xF3moda se te ve, \xBFno ser\xE1 que est\xE1s colaborando?"
+      nextNodeIndex: 2
+    - optionText: "\xBFY por qu\xE9 ese poli te debe favores?"
+      nextNodeIndex: 9
+    - optionText: "\xBFPor qu\xE9 ahora quieres ser algo m\xE1s que una cara bonita?"
+      nextNodeIndex: 3
+  - message: "Vend\xED desde celulares hasta secretos. La diferencia es que ahora
+      no vendo para otros, vendo por m\xED."
+    options:
+    - optionText: "\xBFEst\xE1s buscando poder... o protecci\xF3n?"
+      nextNodeIndex: 4
+    - optionText: "\xBFQuer\xE9s mandar o seguir siendo mandada?"
+      nextNodeIndex: 12
+    - optionText: "\xBFQu\xE9 te hace pensar que puedes con este negocio?"
+      nextNodeIndex: 5
+  - message: "Mir\xE1me bien. \xBFTe parece que nac\xED pa' tomar \xF3rdenes? Si
+      subo, arrastro conmigo a los que valen. El resto... que se aparte."
+    options:
+    - optionText: "\xBFQu\xE9 hac\xEDas hablando con ese poli hace un mes?"
+      nextNodeIndex: 1
+    - optionText: "\xBFEst\xE1s buscando poder... o protecci\xF3n?"
+      nextNodeIndex: 4
+    - optionText: "\xBFQu\xE9 te hace pensar que puedes con este negocio?"
+      nextNodeIndex: 5
