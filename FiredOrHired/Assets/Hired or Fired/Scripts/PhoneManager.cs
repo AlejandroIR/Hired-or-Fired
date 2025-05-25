@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit.Filtering;
 using TMPro;
 using System.Collections.Generic;
 using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 
 
@@ -32,56 +33,46 @@ public class PhoneManager : MonoBehaviour
 
     void Start()
     {
+        grabInteractable = GetComponent<XRGrabInteractable>();
+
         if (gameManager == null)
         {
             gameManager = FindObjectOfType<GameManager>();
         }
 
-        grabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable.selectExited.AddListener(OnReleased);
+        grabInteractable.selectEntered.AddListener(OnGrab);
+
         ringSound.Play();
 
-        // Detener el sonido al agarrar
-        grabInteractable.selectEntered.AddListener(OnGrab);
-        // button.GetComponent<XRPokeFilter>().enabled = false;
-        // button.GetComponent<XRPokeFollowAffordance>().enabled = false;
-        pokeFilter.enabled = false;
-        pokeFollowAffordance.enabled = false;
+        if (pokeFilter != null) pokeFilter.enabled = false;
+        if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
     }
+
 
     void Update()
     {
-        // Simulaci�n de agarre con tecla "I"
         if (!yaAgarrado && Input.GetKeyDown(KeyCode.I))
         {
             EjecutarAccionDeAgarrar();
         }
 
-        // Confirmar solo si ya se agarr� y no se ha confirmado a�n
         if (yaAgarrado && !confirmacionHecha)
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
                 Confirmar();
             }
-
-            // Confirmar con bot�n del mando (VR)
-            var devices = new List<InputDevice>();
-            InputDevices.GetDevicesAtXRNode(XRNode.RightHand, devices);
-
-            if (devices.Count > 0)
-            {
-                InputDevice rightHand = devices[0];
-
-                if (rightHand.TryGetFeatureValue(CommonUsages.secondaryButton, out bool pressed) && pressed)
-                {
-                    Confirmar();
-                }
-            }
         }
     }
 
+
     private void OnGrab(SelectEnterEventArgs args)
     {
+        // Ignorar si fue colocado en un socket (no fue agarrado por el jugador)
+        if (args.interactorObject is XRSocketInteractor)
+            return;
+
         EjecutarAccionDeAgarrar();
     }
 
@@ -96,7 +87,7 @@ public class PhoneManager : MonoBehaviour
 
         if (textoUI != null && gameManager != null)
         {
-            int index = gameManager.currentNPCIndex - 1; // -1 porque ya se increment� despu�s del spawn
+            int index = gameManager.currentNPCIndex - 1; // -1 porque ya se incremento despues del spawn
 
             if (index >= 0 && index < textosPorNPC.Length)
                 textoUI.text = textosPorNPC[index];
@@ -105,15 +96,26 @@ public class PhoneManager : MonoBehaviour
         }
     }
 
+    private void OnReleased(SelectExitEventArgs args)
+    {
+        // Verificamos si el interactor que recibió el objeto es un socket
+        if (args.interactorObject is XRSocketInteractor)
+        {
+            // Solo colgar si fue agarrado y aún no se confirmó
+            if (yaAgarrado && !confirmacionHecha)
+            {
+                Confirmar();
+            }
+        }
+    }
+
     private void Confirmar()
     {
-        // button.GetComponent<XRPokeFilter>().enabled = true;
-        // button.GetComponent<XRPokeFollowAffordance>().enabled = true;
-        pokeFilter.enabled = true;
-        pokeFollowAffordance.enabled = true;
+        if (pokeFilter != null) pokeFilter.enabled = true;
+        if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = true;
 
         confirmacionHecha = true;
-        
+
         hangUpSound.Play();
 
         foreach (var obj in cosasAActivar)
@@ -122,22 +124,24 @@ public class PhoneManager : MonoBehaviour
                 obj.SetActive(true);
         }
 
-        textoUI.gameObject.SetActive(false);
+        if (textoUI != null)
+            textoUI.gameObject.SetActive(false);
     }
+
 
     public void ResetPhone()
     {
-        // button.GetComponent<XRPokeFilter>().enabled = false;
-        // button.GetComponent<XRPokeFollowAffordance>().enabled = false;
-        pokeFilter.enabled = false;
-        pokeFollowAffordance.enabled = false;
+        if (pokeFilter != null) pokeFilter.enabled = false;
+        if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
 
         yaAgarrado = false;
         confirmacionHecha = false;
 
         if (textoUI != null)
+        {
             textoUI.gameObject.SetActive(true);
             textoUI.text = "you fon lingin";
+        }
 
         foreach (var obj in cosasAActivar)
         {
@@ -145,8 +149,9 @@ public class PhoneManager : MonoBehaviour
                 obj.SetActive(false);
         }
 
-        ringSound.Play(); // Vuelve a sonar el tel�fono
+        ringSound.Play();
     }
+
 }
 
 
