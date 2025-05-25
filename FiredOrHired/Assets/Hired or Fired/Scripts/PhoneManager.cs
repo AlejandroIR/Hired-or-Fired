@@ -6,6 +6,7 @@ using TMPro;
 using System.Collections.Generic;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
+using System.Collections;
 
 
 
@@ -31,6 +32,13 @@ public class PhoneManager : MonoBehaviour
     public MonoBehaviour pokeFilter;
     public MonoBehaviour pokeFollowAffordance;
 
+    //Light
+    public Light luzParpadeo; 
+    public float intervaloParpadeo = 0.5f;
+
+    private Coroutine parpadeoCoroutine;
+
+
     void Start()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
@@ -44,6 +52,9 @@ public class PhoneManager : MonoBehaviour
         grabInteractable.selectEntered.AddListener(OnGrab);
 
         ringSound.Play();
+        if (luzParpadeo != null)
+            parpadeoCoroutine = StartCoroutine(ParpadearLuz());
+
 
         if (pokeFilter != null) pokeFilter.enabled = false;
         if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
@@ -93,6 +104,12 @@ public class PhoneManager : MonoBehaviour
                 textoUI.text = textosPorNPC[index];
             else
                 textoUI.text = "error, you fon not lingin :(";
+        }
+        if (parpadeoCoroutine != null)
+        {
+            StopCoroutine(parpadeoCoroutine);
+            parpadeoCoroutine = null;
+            luzParpadeo.enabled = false;
         }
     }
 
@@ -149,7 +166,19 @@ public class PhoneManager : MonoBehaviour
                 obj.SetActive(false);
         }
 
+        if (luzParpadeo != null)
+            parpadeoCoroutine = StartCoroutine(ParpadearLuz());
+
         ringSound.Play();
+    }
+
+    private IEnumerator ParpadearLuz()
+    {
+        while (true)
+        {
+            luzParpadeo.enabled = !luzParpadeo.enabled;
+            yield return new WaitForSeconds(intervaloParpadeo);
+        }
     }
 
 }
