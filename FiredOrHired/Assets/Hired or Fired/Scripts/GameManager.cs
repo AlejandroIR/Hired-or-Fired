@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
 
         if (phoneManager != null)
             phoneManager.ResetPhone();
+
+            if (npcManager != null)
+                npcManager.ResetNpc();
+
+
     }
 
     public void Fire()
@@ -57,6 +62,11 @@ public class GameManager : MonoBehaviour
 
         if (phoneManager != null)
             phoneManager.ResetPhone();
+
+            if (npcManager != null)
+                npcManager.ResetNpc();
+
+
     }
 
     public void FireByBullet(GameObject hitNpc)

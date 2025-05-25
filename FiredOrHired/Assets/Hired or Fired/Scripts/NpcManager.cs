@@ -487,4 +487,48 @@ public class NpcManager : MonoBehaviour
             voiceManager.OnSpeechRecognized -= OnSpeechRecognized;
         }
     }
+
+    public void ResetNpc()
+    {
+        // Asegurarse de que el panel esté visible
+        if (dialogPanel != null)
+            dialogPanel.SetActive(true);
+
+        // Limpiar textos
+        if (dialogText != null)
+            dialogText.text = "";
+
+        if (statusText != null)
+            statusText.text = "";
+
+        // Detener cualquier fade-out en curso
+        if (fadeOutCoroutine != null)
+        {
+            StopCoroutine(fadeOutCoroutine);
+            fadeOutCoroutine = null;
+        }
+
+        // Restaurar opacidad total al fondo y texto
+        if (dialogBackground != null)
+        {
+            Color c = dialogBackground.color;
+            dialogBackground.color = new Color(c.r, c.g, c.b, 1f);
+        }
+        if (dialogText != null)
+        {
+            Color c = dialogText.color;
+            dialogText.color = new Color(c.r, c.g, c.b, 1f);
+        }
+
+        // Resetear estados
+        isProcessing = false;
+        isRecording = false;
+        currentPlayerInput = "";
+
+        // Cancelar solicitudes al modelo
+        CancelRequest();
+
+        Debug.Log("NpcManager reiniciado sin ocultar panel.");
+    }
+
 }

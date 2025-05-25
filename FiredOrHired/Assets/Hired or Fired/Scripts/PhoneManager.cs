@@ -84,8 +84,13 @@ public class PhoneManager : MonoBehaviour
         if (args.interactorObject is XRSocketInteractor)
             return;
 
+        // Evitar repetir si ya fue agarrado antes
+        if (yaAgarrado)
+            return;
+
         EjecutarAccionDeAgarrar();
     }
+
 
     private void EjecutarAccionDeAgarrar()
     {
