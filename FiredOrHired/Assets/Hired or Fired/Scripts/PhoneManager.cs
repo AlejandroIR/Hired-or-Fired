@@ -167,7 +167,8 @@ public class PhoneManager : MonoBehaviour
         if (textoUI != null)
             textoUI.gameObject.SetActive(false);
 
-        grabInteractable.enabled = false;
+        StartCoroutine(DesactivarGrabInteractableConDelay());
+
     }
 
 
@@ -218,6 +219,16 @@ public class PhoneManager : MonoBehaviour
             yield return new WaitForSeconds(intervaloParpadeo);
         }
     }
+
+    private IEnumerator DesactivarGrabInteractableConDelay()
+    {
+        // Espera un par de frames para que el socket haga el snap correctamente
+        yield return new WaitForSeconds(0.1f); // puedes ajustar si es necesario
+
+        if (grabInteractable != null)
+            grabInteractable.enabled = false;
+    }
+
 
 }
 
