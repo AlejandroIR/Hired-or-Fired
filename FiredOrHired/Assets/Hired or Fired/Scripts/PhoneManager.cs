@@ -38,32 +38,53 @@ public class PhoneManager : MonoBehaviour
 
     private Coroutine parpadeoCoroutine;
 
+    private bool puedeAgarrar => ringSound.isPlaying && !yaAgarrado && !confirmacionHecha;
+
+
 
     void Start()
     {
         grabInteractable = GetComponent<XRGrabInteractable>();
 
         if (gameManager == null)
-        {
             gameManager = FindObjectOfType<GameManager>();
-        }
 
         grabInteractable.selectExited.AddListener(OnReleased);
         grabInteractable.selectEntered.AddListener(OnGrab);
+    }
 
-        ringSound.Play();
+
+    public void StartPhoneCall()
+    {
+        if (pokeFilter != null) pokeFilter.enabled = false;
+        if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
+
+        yaAgarrado = false;
+        confirmacionHecha = false;
+        grabInteractable.enabled = true;
+
+        if (textoUI != null)
+        {
+            textoUI.gameObject.SetActive(true);
+            textoUI.text = "you fon lingin";
+        }
+
+        foreach (var obj in cosasAActivar)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
+
         if (luzParpadeo != null)
             parpadeoCoroutine = StartCoroutine(ParpadearLuz());
 
-
-        if (pokeFilter != null) pokeFilter.enabled = false;
-        if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
+        ringSound.Play();
     }
 
 
     void Update()
     {
-        if (!yaAgarrado && Input.GetKeyDown(KeyCode.I))
+        if (puedeAgarrar && Input.GetKeyDown(KeyCode.I))
         {
             EjecutarAccionDeAgarrar();
         }
@@ -80,12 +101,10 @@ public class PhoneManager : MonoBehaviour
 
     private void OnGrab(SelectEnterEventArgs args)
     {
-        // Ignorar si fue colocado en un socket (no fue agarrado por el jugador)
         if (args.interactorObject is XRSocketInteractor)
             return;
 
-        // Evitar repetir si ya fue agarrado antes
-        if (yaAgarrado)
+        if (yaAgarrado || !puedeAgarrar)
             return;
 
         EjecutarAccionDeAgarrar();
@@ -155,6 +174,8 @@ public class PhoneManager : MonoBehaviour
     {
         if (pokeFilter != null) pokeFilter.enabled = false;
         if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
+
+        grabInteractable.enabled = false;
 
         yaAgarrado = false;
         confirmacionHecha = false;

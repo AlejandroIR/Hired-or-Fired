@@ -59,6 +59,8 @@ public class NpcManager : MonoBehaviour
     private bool isReady = false;
     private Coroutine fadeOutCoroutine;
     private Stopwatch processingTimer = new Stopwatch();
+    public bool IsReady => isReady;
+
 
     private void Start()
     {

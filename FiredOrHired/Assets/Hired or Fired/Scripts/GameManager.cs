@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     private GameObject currentNPC;
     private GameObject currentDoc;
 
+    private bool npcManagerReady => npcManager != null && npcManager.IsReady;
+
     void Start()
     {
         StartCoroutine(SpawnNextNPC());
@@ -46,13 +48,6 @@ public class GameManager : MonoBehaviour
         Destroy(currentDoc);
         StartCoroutine(SpawnNextNPC());
 
-        if (phoneManager != null)
-            phoneManager.ResetPhone();
-
-            if (npcManager != null)
-                npcManager.ResetNpc();
-
-
     }
 
     public void Fire()
@@ -61,13 +56,6 @@ public class GameManager : MonoBehaviour
 
         currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
         StartCoroutine(HandleFireDelay());
-
-        if (phoneManager != null)
-            phoneManager.ResetPhone();
-
-            if (npcManager != null)
-                npcManager.ResetNpc();
-
 
     }
 
@@ -142,5 +130,16 @@ public class GameManager : MonoBehaviour
                 light.enabled = true;
         }
 
+
+        if (npcManager != null)
+            npcManager.ResetNpc();
+
+
+        yield return new WaitUntil(() => npcManager != null && npcManagerReady);
+
+        if (phoneManager != null)
+            phoneManager.StartPhoneCall();
+
+       
     }
 }
