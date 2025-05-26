@@ -51,6 +51,12 @@ public class PhoneManager : MonoBehaviour
 
         grabInteractable.selectExited.AddListener(OnReleased);
         grabInteractable.selectEntered.AddListener(OnGrab);
+
+        if (grabInteractable != null)
+            grabInteractable.enabled = true;
+
+        yaAgarrado = false;
+        confirmacionHecha = false;
     }
 
 
@@ -139,10 +145,8 @@ public class PhoneManager : MonoBehaviour
 
     private void OnReleased(SelectExitEventArgs args)
     {
-        // Verificamos si el interactor que recibió el objeto es un socket
         if (args.interactorObject is XRSocketInteractor)
         {
-            // Solo colgar si fue agarrado y aún no se confirmó
             if (yaAgarrado && !confirmacionHecha)
             {
                 Confirmar();
@@ -167,6 +171,8 @@ public class PhoneManager : MonoBehaviour
 
         if (textoUI != null)
             textoUI.gameObject.SetActive(false);
+
+        grabInteractable.enabled = false;
     }
 
 
