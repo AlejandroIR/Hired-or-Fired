@@ -40,6 +40,9 @@ public class PhoneManager : MonoBehaviour
 
     private bool puedeAgarrar => ringSound.isPlaying && !yaAgarrado && !confirmacionHecha;
 
+    private bool fueAgarradoManualmente = false;
+
+
 
 
     void Start()
@@ -67,6 +70,8 @@ public class PhoneManager : MonoBehaviour
         yaAgarrado = false;
         confirmacionHecha = false;
         grabInteractable.enabled = true;
+        fueAgarradoManualmente = false;
+
 
         if (textoUI != null)
         {
@@ -119,6 +124,8 @@ public class PhoneManager : MonoBehaviour
     private void EjecutarAccionDeAgarrar()
     {
         yaAgarrado = true;
+        fueAgarradoManualmente = true;
+
 
         ringSound.Stop();
         pickUpSound.Play();
@@ -166,7 +173,7 @@ public class PhoneManager : MonoBehaviour
 
     public void ConfirmarDesdeSocket()
     {
-        if (confirmacionHecha)
+        if (!fueAgarradoManualmente || confirmacionHecha)
             return;
 
         Confirmar();
@@ -182,6 +189,8 @@ public class PhoneManager : MonoBehaviour
 
         yaAgarrado = false;
         confirmacionHecha = false;
+        fueAgarradoManualmente = false;
+
 
         if (textoUI != null)
         {
