@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
     [Header("Spawn Settings")]
     public Transform npcSpawnPoint;
     public Transform docSpawnPoint;
-    public Light roomLight;
+
+    [Header("Lights")]
+    public List<Light> roomLights;
 
     [Header("Integration")]
     public NpcManager npcManager;
@@ -98,7 +100,11 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnNextNPC()
     {
-        roomLight.enabled = false;
+        foreach (Light light in roomLights)
+        {
+            if (light != null)
+                light.enabled = false;
+        }
         yield return new WaitForSeconds(1f);
 
         if (currentNPC != null)
@@ -130,7 +136,11 @@ public class GameManager : MonoBehaviour
         currentDocIndex++;
 
         yield return new WaitForSeconds(0.5f);
-        roomLight.enabled = true;
-        
+        foreach (Light light in roomLights)
+        {
+            if (light != null)
+                light.enabled = true;
+        }
+
     }
 }
