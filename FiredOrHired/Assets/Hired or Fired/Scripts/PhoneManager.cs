@@ -49,7 +49,6 @@ public class PhoneManager : MonoBehaviour
         if (gameManager == null)
             gameManager = FindObjectOfType<GameManager>();
 
-        grabInteractable.selectExited.AddListener(OnReleased);
         grabInteractable.selectEntered.AddListener(OnGrab);
 
         if (grabInteractable != null)
@@ -143,17 +142,6 @@ public class PhoneManager : MonoBehaviour
         }
     }
 
-    private void OnReleased(SelectExitEventArgs args)
-    {
-        if (args.interactorObject is XRSocketInteractor)
-        {
-            if (yaAgarrado && !confirmacionHecha)
-            {
-                Confirmar();
-            }
-        }
-    }
-
     private void Confirmar()
     {
         if (pokeFilter != null) pokeFilter.enabled = true;
@@ -173,6 +161,15 @@ public class PhoneManager : MonoBehaviour
             textoUI.gameObject.SetActive(false);
 
         grabInteractable.enabled = false;
+    }
+
+
+    public void ConfirmarDesdeSocket()
+    {
+        if (confirmacionHecha)
+            return;
+
+        Confirmar();
     }
 
 
