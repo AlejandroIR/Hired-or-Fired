@@ -38,8 +38,6 @@ public class PhoneManager : MonoBehaviour
 
     private Coroutine parpadeoCoroutine;
 
-    public XRGrabInteractable grabComponent;
-
 
     void Start()
     {
@@ -50,6 +48,8 @@ public class PhoneManager : MonoBehaviour
             gameManager = FindObjectOfType<GameManager>();
         }
 
+        grabInteractable.selectExited.AddListener(OnReleased);
+        grabInteractable.selectEntered.AddListener(OnGrab);
 
         ringSound.Play();
         if (luzParpadeo != null)
@@ -77,11 +77,6 @@ public class PhoneManager : MonoBehaviour
         }
     }
 
-    public void SetPhoneGrabbable(bool canGrab)
-    {
-        if (grabComponent != null)
-            grabComponent.enabled = canGrab;
-    }
 
     private void OnGrab(SelectEnterEventArgs args)
     {
@@ -123,7 +118,20 @@ public class PhoneManager : MonoBehaviour
         }
     }
 
-    public void Confirmar()
+    private void OnReleased(SelectExitEventArgs args)
+    {
+        // Verificamos si el interactor que recibió el objeto es un socket
+        if (args.interactorObject is XRSocketInteractor)
+        {
+            // Solo colgar si fue agarrado y aún no se confirmó
+            if (yaAgarrado && !confirmacionHecha)
+            {
+                Confirmar();
+            }
+        }
+    }
+
+    private void Confirmar()
     {
         if (pokeFilter != null) pokeFilter.enabled = true;
         if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = true;

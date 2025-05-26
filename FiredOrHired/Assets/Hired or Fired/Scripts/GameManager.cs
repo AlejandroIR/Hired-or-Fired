@@ -98,9 +98,6 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnNextNPC()
     {
-        if (phoneManager != null)
-            phoneManager.SetPhoneGrabbable(false);
-
         roomLight.enabled = false;
         yield return new WaitForSeconds(1f);
 
@@ -134,9 +131,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         roomLight.enabled = true;
-
-        if (phoneManager != null)
-            phoneManager.SetPhoneGrabbable(true);
-
+        
     }
 }
