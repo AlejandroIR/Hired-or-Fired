@@ -103,6 +103,7 @@ MonoBehaviour:
   lifetime: 5
   impactEffect: {fileID: 8215357238292148553, guid: e9129c173e130e0499ae8e823a83c8c5, type: 3}
   impactBloodEffect: {fileID: 1362418652685942, guid: b369efb4abe69e044890b664115fab9e, type: 3}
+  impactGlassEffect: {fileID: 5211272819547727613, guid: a9c9bf6effbd7f0489cf392d08a41ede, type: 3}
 --- !u!54 &1122598457015650226
 Rigidbody:
   m_ObjectHideFlags: 0

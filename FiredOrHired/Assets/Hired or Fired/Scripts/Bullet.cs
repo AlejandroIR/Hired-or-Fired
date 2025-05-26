@@ -11,6 +11,7 @@ public class Bullet : MonoBehaviour
     private RevolverVR owner;
 
     public GameObject impactBloodEffect;
+    public GameObject impactGlassEffect;
 
     public void Init(RevolverVR owner)
     {
@@ -54,6 +55,14 @@ public class Bullet : MonoBehaviour
             Destroy(effect.gameObject, destroyTime);
         }
 
+        if (collision.gameObject.CompareTag("Glass"))
+        {
+            Debug.Log("Hit Glass: " + collision.gameObject.name);
+            Vector3 bulletPosition = transform.position;
+            Instantiate(impactGlassEffect, bulletPosition, Quaternion.identity);
+            Destroy(collision.gameObject);
+        }
+
         DestroySelf();
     }
 
@@ -86,6 +95,16 @@ public class Bullet : MonoBehaviour
                 Instantiate(impactBloodEffect, bulletPosition, Quaternion.identity);
             }
         }
+
+        if (other.CompareTag("Glass"))
+        {
+            Debug.Log("Hit Glass: " + other.gameObject.name);
+            Destroy(other.gameObject);
+            Vector3 bulletPosition = transform.position;
+            Instantiate(impactGlassEffect, bulletPosition, Quaternion.identity);
+        }
+
+        DestroySelf();
     }
 
 }

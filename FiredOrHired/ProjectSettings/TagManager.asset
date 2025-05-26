@@ -10,6 +10,7 @@ TagManager:
   - Money
   - Target
   - Mango
+  - Glass
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Left Hand Physics
   - Right Hand Physics
   - Non Physics Hand Layer
-  - 
+  - PP
   - 
   - 
   - 
