@@ -19317,6 +19317,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -5278166820608330550, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -5278166820608330550, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
       propertyPath: m_Name
       value: OfficePhone
@@ -19347,9 +19355,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 933770353}
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2094365315}
     - targetCorrespondingSourceObject: {fileID: -5278166820608330550, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2094365326}
@@ -19372,11 +19377,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2094365320}
   m_SourcePrefab: {fileID: 100100000, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
---- !u!1 &2094365311 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
-  m_PrefabInstance: {fileID: 2094365310}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2094365312 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7179765662211221020, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
@@ -19392,52 +19392,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -5278166820608330550, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
   m_PrefabInstance: {fileID: 2094365310}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2094365315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2094365311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_Handedness: 0
-  m_AttachTransform: {fileID: 0}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
 --- !u!65 &2094365316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19496,7 +19450,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 2
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -19644,7 +19598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2
   m_Handedness: 0
   m_AttachTransform: {fileID: 933770353}
   m_KeepSelectedTargetValid: 1
