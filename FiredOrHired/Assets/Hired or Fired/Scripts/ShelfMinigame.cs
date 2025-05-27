@@ -7,7 +7,7 @@ public class ShelfMinigame : MonoBehaviour
     // Start is called before the first frame update
     //Array de gameobjects que representan los objetos en la estantería a romper:
     public GameObject[] shelfObjects;
-    public GameObject fireWorkPrefab;
+    public GameObject[] fireWorkPrefab;
     public Transform fireWorkSpawnPoint;
     private bool hasWon = false;
     void Start()
@@ -34,9 +34,21 @@ public class ShelfMinigame : MonoBehaviour
 
         Debug.Log("¡Has ganado el minijuego!");
 
-        // Use the rotation of the spawn point when instantiating
-        Instantiate(fireWorkPrefab, fireWorkSpawnPoint.position, fireWorkSpawnPoint.rotation);
+        StartCoroutine(SpawnFireworksWithDelay());
+        
         hasWon = true;
+    }
+    
+    private IEnumerator SpawnFireworksWithDelay()
+    {
+        foreach (GameObject fireWork in fireWorkPrefab)
+        {
+            if (fireWork != null)
+            {
+                Instantiate(fireWork, fireWorkSpawnPoint.position, fireWorkSpawnPoint.rotation);
+                yield return new WaitForSeconds(0.5f);
+            }
+        }
     }
     
     private void DebugKeysDestroyOneObject()
