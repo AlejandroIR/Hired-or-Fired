@@ -12357,6 +12357,7 @@ MonoBehaviour:
   roomLights:
   - {fileID: 901397391}
   - {fileID: 1462316207}
+  - {fileID: 88017722}
   npcManager: {fileID: 0}
   currentNPCIndex: 0
   currentDocIndex: 0
