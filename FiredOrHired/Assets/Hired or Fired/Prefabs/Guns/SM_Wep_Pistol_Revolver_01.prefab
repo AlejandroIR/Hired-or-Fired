@@ -494,7 +494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzleTransform: {fileID: 1049120191878532513}
   bulletPrefab: {fileID: 8078717209172065084, guid: b73c1a28313da294387fecc72dc996e3, type: 3}
-  bulletSpeed: 5
+  bulletSpeed: 15
   cylinderTransform: {fileID: 7414652029256518894}
   rotationDuration: 0.2
   rotationAngle: 60

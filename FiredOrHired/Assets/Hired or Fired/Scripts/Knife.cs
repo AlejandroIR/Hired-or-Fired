@@ -1,68 +1,35 @@
 using UnityEngine;
-using System.Collections;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Knife : MonoBehaviour
 {
-    [Header("Configuration")]
-    [SerializeField] private float stickTime = 2f;
-    [SerializeField] private Rigidbody knifeRigidbody;
-
-    private Vector3 initialPosition;
-    private Quaternion initialRotation;
+    public Collider bladeCollider;
+    public Rigidbody knifeRigidbody;
     private bool isStuck = false;
 
-    private void Start()
+    private void Awake()
     {
-        initialPosition = transform.position;
-        initialRotation = transform.rotation;
+        knifeRigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (isStuck) return;
 
-        if (collision.gameObject.CompareTag("Target"))
-        {
-            StickKnife(collision);
-            StartCoroutine(UnstickAfterDelay());
-        }
-        else if (collision.gameObject.CompareTag("Mango"))
-        {
-            ResetKnifePosition();
-        }
-    }
+        ContactPoint contact = collision.GetContact(0);
 
-    private void StickKnife(Collision collision)
-    {
+        if (contact.thisCollider != bladeCollider) return;
+        if (!collision.gameObject.CompareTag("Target")) return;
+
         isStuck = true;
-
         knifeRigidbody.isKinematic = true;
+        knifeRigidbody.velocity = Vector3.zero;
+        knifeRigidbody.angularVelocity = Vector3.zero;
+
+        Quaternion currentRot = transform.rotation;
+        Vector3 localOffset = transform.InverseTransformPoint(contact.point);
+        transform.rotation = currentRot;
+        transform.position = contact.point - (transform.rotation * localOffset);
         transform.SetParent(collision.transform);
-    }
-
-    private IEnumerator UnstickAfterDelay()
-    {
-        yield return new WaitForSeconds(stickTime);
-
-        knifeRigidbody.isKinematic = false;
-        transform.SetParent(null);
-        ResetKnifePosition();
-        isStuck = false;
-    }
-
-    private void ResetKnifePosition()
-    {
-        StopAllCoroutines();
-        transform.position = initialPosition;
-        transform.rotation = initialRotation;
-
-        if (knifeRigidbody != null)
-        {
-            knifeRigidbody.velocity = Vector3.zero;
-            knifeRigidbody.angularVelocity = Vector3.zero;
-            knifeRigidbody.isKinematic = false;
-        }
-
-        isStuck = false;
     }
 }
