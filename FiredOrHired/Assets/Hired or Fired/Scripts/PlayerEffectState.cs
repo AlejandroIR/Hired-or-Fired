@@ -10,6 +10,7 @@ public class PlayerEffectState : MonoBehaviour
     [Header("Depuración")]
     public bool isSmokingCurrently = false;
     public bool isDrinkingCurrently = false;
+    public bool isCocaineEffectActive = false;
     public GameObject currentActiveItem = null;
     private void Start()
     {
@@ -57,6 +58,19 @@ public class PlayerEffectState : MonoBehaviour
             currentActiveItem = drinkingItem;
         }
         else if (currentActiveItem == drinkingItem)
+        {
+            currentActiveItem = null;
+        }
+    }
+    
+    public void SetCocaineState(bool isCocaineActive, GameObject cocaineItem = null)
+    {
+        isCocaineEffectActive = isCocaineActive;
+        if (isCocaineActive)
+        {
+            currentActiveItem = cocaineItem;
+        }
+        else if (currentActiveItem == cocaineItem)
         {
             currentActiveItem = null;
         }

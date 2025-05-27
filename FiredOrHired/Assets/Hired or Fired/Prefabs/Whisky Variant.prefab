@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Whisky Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1126824068822070, guid: fb29e70946e152d4191a0361efa91ca4, type: 3}
+      propertyPath: m_TagString
+      value: Glass
+      objectReference: {fileID: 0}
     - target: {fileID: 4407337400568096, guid: fb29e70946e152d4191a0361efa91ca4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 44.206
@@ -68,6 +72,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1126824068822070, guid: fb29e70946e152d4191a0361efa91ca4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5471326868208701129}
+    - targetCorrespondingSourceObject: {fileID: 1126824068822070, guid: fb29e70946e152d4191a0361efa91ca4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8128540942119982078}
+    - targetCorrespondingSourceObject: {fileID: 1126824068822070, guid: fb29e70946e152d4191a0361efa91ca4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 81768578044381636}
   m_SourcePrefab: {fileID: 100100000, guid: fb29e70946e152d4191a0361efa91ca4, type: 3}
 --- !u!1 &3370691911194607239 stripped
 GameObject:
@@ -348,3 +358,38 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &8128540942119982078
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370691911194607239}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.13218024, y: 0.12922454, z: 0.13218027}
+  m_Center: {x: 0.000000037252903, y: 0.06461227, z: 0}
+--- !u!114 &81768578044381636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3370691911194607239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0e07a66ad390f941b60f43b397518b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactGlassEffect: {fileID: 5211272819547727613, guid: a9c9bf6effbd7f0489cf392d08a41ede, type: 3}
+  impactThreshold: 3
