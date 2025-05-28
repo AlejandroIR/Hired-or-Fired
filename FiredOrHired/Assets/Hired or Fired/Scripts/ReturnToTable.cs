@@ -60,6 +60,9 @@ public class ReturnToTable : MonoBehaviour
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
+            rb.isKinematic = false;
+            rb.useGravity = true;
+
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
