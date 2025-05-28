@@ -53,9 +53,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Contratado");
         npcReady = false;
 
-        Destroy(currentNPC);
-        Destroy(currentDoc);
-        StartCoroutine(SpawnNextNPC());
+        Animator anim = currentNPC.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.SetBool("IsSeated", false);
+            anim.SetTrigger("StandUp");
+        }
+
+        StartCoroutine(HandleHireDelay());
 
     }
 
@@ -95,6 +100,13 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
 
+        Destroy(currentNPC);
+        Destroy(currentDoc);
+        StartCoroutine(SpawnNextNPC());
+    }
+    IEnumerator HandleHireDelay()
+    {
+        yield return new WaitForSeconds(2f);
         Destroy(currentNPC);
         Destroy(currentDoc);
         StartCoroutine(SpawnNextNPC());
@@ -143,9 +155,20 @@ public class GameManager : MonoBehaviour
         mover.target = npcChairPoint;
         mover.OnArrived = () =>
         {
-            Debug.Log("NPC llegó a la silla");
+            StartCoroutine(CompleteNpcArrival());
+        };
+
+        IEnumerator CompleteNpcArrival()
+        {
+            yield return new WaitForSeconds(1f); // Esperar a que termine la animación de sentarse
 
             npcReady = true;
+
+            Animator anim = currentNPC.GetComponent<Animator>();
+            if (anim != null)
+            {
+                anim.SetBool("IsSeated", true); // Activar animación de estar sentado
+            }
 
             foreach (Light light in roomLights)
             {
@@ -153,12 +176,11 @@ public class GameManager : MonoBehaviour
                     light.enabled = true;
             }
 
-
             if (npcManager != null)
                 npcManager.ResetNpc();
 
             if (phoneManager != null)
                 phoneManager.StartPhoneCall();
-        };
+        }
     }
 }

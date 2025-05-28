@@ -1,36 +1,46 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 public class NpcWalker : MonoBehaviour
 {
     public Transform target;
-    public float speed = 1.5f;
-    public float stopDistance = 0.1f;
-
     public System.Action OnArrived;
 
-    private bool arrived = false;
+    private float speed = 1f;
+    private float stoppingDistance = 0.1f;
+
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        if (animator != null)
+            animator.SetBool("IsWalking", true); // Activa animación caminar
+    }
 
     void Update()
     {
-        if (arrived || target == null) return;
+        if (target == null) return;
 
-        // Mueve hacia el objetivo
-        Vector3 direction = (target.position - transform.position).normalized;
-        transform.position += direction * speed * Time.deltaTime;
+        Vector3 direction = target.position - transform.position;
+        direction.y = 0;
 
-        // Rota suavemente hacia el objetivo
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
-
-        // Verifica llegada
-        if (Vector3.Distance(transform.position, target.position) <= stopDistance)
+        if (direction.magnitude > stoppingDistance)
         {
-            arrived = true;
-            transform.position = target.position;
+            transform.position += direction.normalized * speed * Time.deltaTime;
+            transform.forward = direction.normalized;
+        }
+        else
+        {
             transform.rotation = target.rotation;
 
+            if (animator != null)
+            {
+                animator.SetBool("IsWalking", false);
+                animator.SetTrigger("SitDown"); // Activar animación de sentarse
+            }
+
             OnArrived?.Invoke();
+            Destroy(this); // Ya no se necesita
         }
     }
 }
