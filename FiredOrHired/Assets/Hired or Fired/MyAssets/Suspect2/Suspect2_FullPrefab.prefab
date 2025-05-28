@@ -424,6 +424,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5433627539196637531, guid: 4dee54b13688a8b4f8a2664292c11216, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1044840436745297608}
+    - targetCorrespondingSourceObject: {fileID: 5433627539196637531, guid: 4dee54b13688a8b4f8a2664292c11216, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 375329981274520050}
   m_SourcePrefab: {fileID: 100100000, guid: 4dee54b13688a8b4f8a2664292c11216, type: 3}
 --- !u!1 &58957490395467458 stripped
 GameObject:
@@ -552,6 +555,20 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   m_FarAttachMode: 0
+--- !u!114 &375329981274520050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58957490395467458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!4 &836162284755522680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4621766176901966817, guid: 4dee54b13688a8b4f8a2664292c11216, type: 3}
