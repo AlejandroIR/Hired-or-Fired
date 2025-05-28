@@ -10,7 +10,19 @@ public class Money : MonoBehaviour
         {
             Debug.Log("Hit NPC: " + other.gameObject.name);
 
-            transform.position = new Vector3(500, 100, 500);
+            Vector3 targetPosition = new Vector3(500, 100, 500);
+
+            Rigidbody rb = GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false;
+                rb.useGravity = true;
+
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+
+                rb.MovePosition(targetPosition);
+            }
 
             // Find the GameManager and trigger the Fire logic
             GameManager gameManager = FindObjectOfType<GameManager>();
