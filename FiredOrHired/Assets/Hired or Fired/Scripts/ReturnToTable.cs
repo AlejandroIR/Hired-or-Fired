@@ -18,6 +18,7 @@ public class ReturnToTable : MonoBehaviour
     {
         initialPosition = transform.position;
         initialRotation = transform.rotation;
+        grabInteractable = GetComponent<XRGrabInteractable>();
     }
 
     public void SetOnTable(bool value)
