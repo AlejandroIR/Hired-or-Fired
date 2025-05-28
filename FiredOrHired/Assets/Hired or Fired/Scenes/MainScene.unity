@@ -23360,6 +23360,7 @@ MonoBehaviour:
   pokeFollowAffordance: {fileID: 770764376}
   luzParpadeo: {fileID: 1673603406}
   intervaloParpadeo: 0.5
+  fastResetPosition: {fileID: 933770353}
 --- !u!114 &2094365329
 MonoBehaviour:
   m_ObjectHideFlags: 0

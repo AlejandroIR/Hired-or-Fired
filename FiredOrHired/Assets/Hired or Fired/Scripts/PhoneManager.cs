@@ -43,6 +43,7 @@ public class PhoneManager : MonoBehaviour
     private bool fueAgarradoManualmente = false;
 
     private Rigidbody rb;
+    public Transform fastResetPosition;
 
 
     void Start()
@@ -189,38 +190,23 @@ public class PhoneManager : MonoBehaviour
         Confirmar();
     }
 
-
-    public void ResetPhone()
+    public void FastReset()
     {
-        if (pokeFilter != null) pokeFilter.enabled = false;
-        if (pokeFollowAffordance != null) pokeFollowAffordance.enabled = false;
+        ringSound.Stop();
 
         grabInteractable.enabled = false;
 
-        yaAgarrado = false;
-        confirmacionHecha = false;
-        fueAgarradoManualmente = false;
-
-        if (rb != null)
-            rb.isKinematic = true;
-
-
-        if (textoUI != null)
+        if (parpadeoCoroutine != null)
         {
-            textoUI.gameObject.SetActive(true);
-            textoUI.text = "you fon lingin";
-        }
-
-        foreach (var obj in cosasAActivar)
-        {
-            if (obj != null)
-                obj.SetActive(false);
+            StopCoroutine(parpadeoCoroutine);
+            parpadeoCoroutine = null;
         }
 
         if (luzParpadeo != null)
-            parpadeoCoroutine = StartCoroutine(ParpadearLuz());
+            luzParpadeo.enabled = false;
 
-        ringSound.Play();
+        transform.position = fastResetPosition.position;
+        transform.rotation = fastResetPosition.rotation;
     }
 
     private IEnumerator ParpadearLuz()
@@ -234,14 +220,11 @@ public class PhoneManager : MonoBehaviour
 
     private IEnumerator DesactivarGrabInteractableConDelay()
     {
-        // Espera un par de frames para que el socket haga el snap correctamente
-        yield return new WaitForSeconds(0.1f); // puedes ajustar si es necesario
+        yield return new WaitForSeconds(0.1f); 
 
         if (grabInteractable != null)
             grabInteractable.enabled = false;
     }
-
-
 }
 
 

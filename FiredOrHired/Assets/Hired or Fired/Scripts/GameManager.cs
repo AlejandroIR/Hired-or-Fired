@@ -60,6 +60,9 @@ public class GameManager : MonoBehaviour
             anim.SetTrigger("StandUp");
         }
 
+        if (phoneManager != null)
+            phoneManager.FastReset();
+
         StartCoroutine(HandleHireDelay());
 
     }
@@ -72,6 +75,10 @@ public class GameManager : MonoBehaviour
         npcReady = false;
 
         currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
+
+        if (phoneManager != null)
+            phoneManager.FastReset();
+
         StartCoroutine(HandleFireDelay());
 
     }
