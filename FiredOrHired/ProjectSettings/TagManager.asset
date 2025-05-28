@@ -11,6 +11,7 @@ TagManager:
   - Target
   - Mango
   - Glass
+  - Extintor
   layers:
   - Default
   - TransparentFX

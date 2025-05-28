@@ -32,6 +32,14 @@ public class Bullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Revolver")) return;
 
+        if (collision.gameObject.CompareTag("Extintor"))
+        {
+            var ext = collision.gameObject.GetComponent<Extintor>();
+            if (ext != null) ext.ActivarEfectos();
+            return;
+
+        }
+
         // Check if the collision is with an NPC
         if (collision.gameObject.CompareTag("NPC"))
         {
@@ -80,6 +88,24 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log($"[Bullet] Trigger con '{other.gameObject.name}' (Tag: {other.gameObject.tag})");
+
+        if (other.CompareTag("Revolver"))
+            return;
+
+        if (other.CompareTag("Extintor"))
+        {
+            var ext = other.GetComponent<Extintor>();
+            //Rigidbody rb = other.attachedRigidbody;
+            //if (rb != null)
+            //{
+            //    rb.isKinematic = false;
+            //    rb.useGravity = true;
+            //}
+            if (ext != null) ext.ActivarEfectos();
+            return;
+        }
+
         if (other.CompareTag("NPC"))
         {
             Debug.Log("Hit NPC: " + other.gameObject.name);
