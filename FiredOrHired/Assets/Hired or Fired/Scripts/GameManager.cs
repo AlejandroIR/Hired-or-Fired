@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     private bool npcManagerReady => npcManager != null && npcManager.IsReady;
 
+    private bool npcReady = false;
+
     void Start()
     {
         StartCoroutine(SpawnNextNPC());
@@ -42,7 +44,10 @@ public class GameManager : MonoBehaviour
 
     public void Hire()
     {
+        if (!npcReady) return;
+
         Debug.Log("Contratado");
+        npcReady = false;
 
         Destroy(currentNPC);
         Destroy(currentDoc);
@@ -52,7 +57,10 @@ public class GameManager : MonoBehaviour
 
     public void Fire()
     {
+        if (!npcReady || currentNPC == null) return;
+
         Debug.Log("Eliminado");
+        npcReady = false;
 
         currentNPC.GetComponent<RagdollController>().ActivateRagdoll();
         StartCoroutine(HandleFireDelay());
@@ -61,6 +69,8 @@ public class GameManager : MonoBehaviour
 
     public void FireByBullet(GameObject hitNpc)
     {
+        if (!npcReady || hitNpc != currentNPC) return;
+
         Debug.Log("NPC shot by bullet");
         
         // Make sure this is our current NPC
@@ -88,6 +98,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnNextNPC()
     {
+        npcReady = false;
+
         foreach (Light light in roomLights)
         {
             if (light != null)
@@ -132,7 +144,10 @@ public class GameManager : MonoBehaviour
 
 
         if (npcManager != null)
+        {
+            npcReady = true;
             npcManager.ResetNpc();
+        }
 
 
         yield return new WaitUntil(() => npcManager != null && npcManagerReady);
@@ -140,6 +155,6 @@ public class GameManager : MonoBehaviour
         if (phoneManager != null)
             phoneManager.StartPhoneCall();
 
-       
+
     }
 }
