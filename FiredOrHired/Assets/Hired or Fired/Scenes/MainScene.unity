@@ -3171,6 +3171,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &338066924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 338066925}
+  m_Layer: 0
+  m_Name: PhoneReturningPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &338066925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338066924}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000014901159, y: 0.996967, z: -0, w: -0.07782538}
+  m_LocalPosition: {x: -0.0481, y: 0.0215, z: -0.0249}
+  m_LocalScale: {x: 0.28571412, y: 0.28571427, z: 0.28571406}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1980745536}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &343691414
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5311,6 +5342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &524449950
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8193,6 +8226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &765410946
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8453,6 +8488,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &768647771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11307,6 +11344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &1043047390
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12965,6 +13004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &1168970565
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17502,6 +17543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &1526007864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21188,6 +21231,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &1904265584
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21760,6 +21805,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 0
+  phoneReturnPoint: {fileID: 0}
 --- !u!1001 &1967860731
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22969,6 +23016,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1673603404}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 338066925}
     - targetCorrespondingSourceObject: {fileID: 5782263015307960926, guid: 2d8296d2f2fb48546a2730d2cf399da3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1679081876}
@@ -23346,6 +23396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddba20383ed428f49a8e1157fc9591bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usePhoneReturnPoint: 1
+  phoneReturnPoint: {fileID: 338066925}
 --- !u!1001 &2118449041
 PrefabInstance:
   m_ObjectHideFlags: 0

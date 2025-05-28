@@ -14,6 +14,11 @@ public class ReturnToTable : MonoBehaviour
     private float timer = 0f;
     private bool isOnTable = true;
 
+    [Header("Special Return for Phone")]
+    public bool usePhoneReturnPoint = false;
+    public Transform phoneReturnPoint;
+
+
     void Start()
     {
         initialPosition = transform.position;
@@ -43,19 +48,28 @@ public class ReturnToTable : MonoBehaviour
 
     void ReturnToStart()
     {
+        Vector3 targetPosition = initialPosition;
+        Quaternion targetRotation = initialRotation;
+
+        if (tag == "Phone" && usePhoneReturnPoint && phoneReturnPoint != null)
+        {
+            targetPosition = phoneReturnPoint.position;
+            targetRotation = phoneReturnPoint.rotation;
+        }
+
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
 
-            rb.MovePosition(initialPosition);
-            rb.MoveRotation(initialRotation);
+            rb.MovePosition(targetPosition);
+            rb.MoveRotation(targetRotation);
         }
         else
         {
-            transform.position = initialPosition;
-            transform.rotation = initialRotation;
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
         }
 
         timer = 0f;

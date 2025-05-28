@@ -817,6 +817,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 95081624477342852}
+  headRigidbody: {fileID: 240308317799924019}
+  headCollider: {fileID: 7149953813310804577}
 --- !u!136 &4175251771166677220
 CapsuleCollider:
   m_ObjectHideFlags: 0
