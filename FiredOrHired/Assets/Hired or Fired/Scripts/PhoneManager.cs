@@ -42,7 +42,7 @@ public class PhoneManager : MonoBehaviour
 
     private bool fueAgarradoManualmente = false;
 
-
+    private Rigidbody rb;
 
 
     void Start()
@@ -59,6 +59,10 @@ public class PhoneManager : MonoBehaviour
 
         yaAgarrado = false;
         confirmacionHecha = false;
+
+        rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.isKinematic = false;
     }
 
 
@@ -126,6 +130,8 @@ public class PhoneManager : MonoBehaviour
         yaAgarrado = true;
         fueAgarradoManualmente = true;
 
+        if (rb != null)
+            rb.isKinematic = false;
 
         ringSound.Stop();
         pickUpSound.Play();
@@ -166,6 +172,9 @@ public class PhoneManager : MonoBehaviour
 
         if (textoUI != null)
             textoUI.gameObject.SetActive(false);
+
+        if (rb != null)
+        rb.isKinematic = true; 
 
         StartCoroutine(DesactivarGrabInteractableConDelay());
 
