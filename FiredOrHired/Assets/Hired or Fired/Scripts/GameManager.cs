@@ -19,6 +19,10 @@ public class GameManager : MonoBehaviour
     [Header("Lights")]
     public List<Light> roomLights;
 
+    [Header("Path Points")]
+    public Transform npcEntrancePoint;
+    public Transform npcChairPoint;
+
     [Header("Integration")]
     public NpcManager npcManager;
 
@@ -35,7 +39,7 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(SpawnNextNPC());
         Debug.Log("Spawn NPC");
-        
+
         // Find NpcManager if not assigned
         if (npcManager == null)
             npcManager = FindObjectOfType<NpcManager>();
@@ -72,14 +76,14 @@ public class GameManager : MonoBehaviour
         if (!npcReady || hitNpc != currentNPC) return;
 
         Debug.Log("NPC shot by bullet");
-        
+
         // Make sure this is our current NPC
         if (hitNpc != currentNPC)
             return;
-            
+
         // Trigger the regular fire logic
         Fire();
-        
+
         // Sync with NpcManager if available
         if (npcManager != null)
         {
@@ -112,7 +116,7 @@ public class GameManager : MonoBehaviour
             Destroy(currentNPC);
         }
 
-        if(currentDoc != null)
+        if (currentDoc != null)
         {
             Destroy(currentDoc);
         }
@@ -124,37 +128,37 @@ public class GameManager : MonoBehaviour
         }
 
         GameObject npcToSpawn = npcPrefabs[currentNPCIndex];
-        currentNPC = Instantiate(npcToSpawn, npcSpawnPoint.position, npcSpawnPoint.rotation);
+        currentNPC = Instantiate(npcToSpawn, npcEntrancePoint.position, npcEntrancePoint.rotation);
 
         GameObject docToSpawn = documents[currentDocIndex];
         currentDoc = Instantiate(docToSpawn, docSpawnPoint.position, docSpawnPoint.rotation);
 
         // Tag the NPC for bullet collision detection
         currentNPC.tag = "NPC";
-        
+
         currentNPCIndex++;
         currentDocIndex++;
 
-        yield return new WaitForSeconds(0.5f);
-        foreach (Light light in roomLights)
+        NpcWalker mover = currentNPC.AddComponent<NpcWalker>();
+        mover.target = npcChairPoint;
+        mover.OnArrived = () =>
         {
-            if (light != null)
-                light.enabled = true;
-        }
+            Debug.Log("NPC llegó a la silla");
 
-
-        if (npcManager != null)
-        {
             npcReady = true;
-            npcManager.ResetNpc();
-        }
+
+            foreach (Light light in roomLights)
+            {
+                if (light != null)
+                    light.enabled = true;
+            }
 
 
-        yield return new WaitUntil(() => npcManager != null && npcManagerReady);
+            if (npcManager != null)
+                npcManager.ResetNpc();
 
-        if (phoneManager != null)
-            phoneManager.StartPhoneCall();
-
-
+            if (phoneManager != null)
+                phoneManager.StartPhoneCall();
+        };
     }
 }
