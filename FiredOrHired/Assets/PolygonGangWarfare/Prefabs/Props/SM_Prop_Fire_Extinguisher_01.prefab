@@ -152,9 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionPS: {fileID: 6562815473090090137}
   polvoPS: {fileID: 2245292814964325868}
-  polvofinalPS: {fileID: 0}
-  polvoClip: {fileID: 8300000, guid: b7467ae4664bc39498a4ce4cd35eee25, type: 3}
-  explosionClip: {fileID: 8300000, guid: bf6a52cb8a423b341906bf152139e15c, type: 3}
+  polvoClip: {fileID: 8300000, guid: bb7290c80474ce74eb9d23a6c903ff18, type: 3}
 --- !u!82 &8166778098518048612
 AudioSource:
   m_ObjectHideFlags: 0
@@ -167,7 +165,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -277,13 +275,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4554673081113183145}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.022, y: 0.032, z: 0.017}
+  m_LocalRotation: {x: -0, y: -0.07049085, z: -0, w: 0.99751246}
+  m_LocalPosition: {x: -0.05, y: 0.032, z: 0.139}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4668699804704756}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -8.084, z: 0}
 --- !u!198 &2245292814964325868
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -367,8 +365,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.2
-      minScalar: 0.8
+      scalar: 2
+      minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -420,8 +418,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 1.5
+      scalar: 3.2
+      minScalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -474,7 +472,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.869, g: 0.8479745, b: 0.65348804, a: 0.60784316}
+      maxColor: {r: 0.792, g: 0.78481936, b: 0.72864, a: 0.69411767}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -539,7 +537,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 3
       scalar: 0.6
-      minScalar: 0.8
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -916,7 +914,7 @@ ParticleSystem:
     serializedVersion: 6
     enabled: 1
     type: 4
-    angle: 1.43
+    angle: 5
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -1002,7 +1000,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.0001
+      value: 0.1
       mode: 0
       spread: 0
       speed:
@@ -3870,10 +3868,10 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 4
     type: 1
-    collisionMode: 1
+    collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
     multiplyColliderForceByParticleSpeed: 0
