@@ -133,22 +133,24 @@ public class NpcManager : MonoBehaviour
         
         UpdateStatusText("Inicializando modelo LLM...");
     }
-    
+
     private IEnumerator WarmUpModel()
     {
         isReady = false;
         UpdateStatusText("Inicializando modelo LLM...");
-        
+
         // Ejecutar el warm-up del modelo
         Task warmupTask = llmCharacter.Warmup(OnWarmupComplete);
-        
+
         // Esperar a que se complete el warm-up
         while (!isReady)
         {
             yield return null;
         }
-        
-        UpdateStatusText("Listo - Presiona el botón para hablar");
+
+        // UpdateStatusText("Listo - Presiona el botón para hablar");
+        UpdateStatusText(" ");
+
     }
     
     private void OnWarmupComplete()
@@ -331,8 +333,7 @@ public class NpcManager : MonoBehaviour
         // Programar desvanecimiento rápido para el mensaje del jugador
         fadeOutCoroutine = StartCoroutine(FadeOutDialog(1.5f)); // Desvanecimiento más rápido para el mensaje del jugador
     }
-    
-    public void ShowNpcDialog(string dialogContent)
+      public void ShowNpcDialog(string dialogContent)
     {
         // Cancelar cualquier desvanecimiento anterior
         if (fadeOutCoroutine != null)
@@ -346,11 +347,23 @@ public class NpcManager : MonoBehaviour
         dialogBackground.color = new Color(dialogBackground.color.r, dialogBackground.color.g, dialogBackground.color.b, 1f);
         dialogText.color = new Color(dialogText.color.r, dialogText.color.g, dialogText.color.b, 1f);
         
-        // Programar desvanecimiento solo cuando el texto está completo
-        if (!dialogContent.Equals("..."))
+        // NO programar desvanecimiento automático - el texto permanecerá hasta que se presione el botón de hablar
+        // Solo mostrar "..." desaparece automáticamente para indicar que está pensando
+        if (dialogContent.Equals("..."))
         {
-            fadeOutCoroutine = StartCoroutine(FadeOutDialog(dialogDisplayTime));
+            fadeOutCoroutine = StartCoroutine(FadeOutDialog(2f)); // Solo el indicador de "pensando" desaparece
         }
+    }
+    
+    // Método para ocultar el diálogo manualmente (será llamado desde VoiceManager)
+    public void HideNpcDialog()
+    {
+        // Cancelar cualquier desvanecimiento en curso
+        if (fadeOutCoroutine != null)
+            StopCoroutine(fadeOutCoroutine);
+            
+        // Ocultar el panel inmediatamente
+        dialogPanel.SetActive(false);
     }
     
     private IEnumerator FadeOutDialog(float displayTime = 5f)
@@ -477,7 +490,8 @@ public class NpcManager : MonoBehaviour
         {
             llmCharacter.CancelRequests();
             isProcessing = false;
-            UpdateStatusText("Solicitud cancelada - Presiona J para hablar");
+            UpdateStatusText(" ");
+            //UpdateStatusText("Solicitud cancelada. Presiona J para hablar de nuevo.");
         }
     }
     

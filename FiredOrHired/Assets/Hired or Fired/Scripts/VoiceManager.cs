@@ -126,14 +126,24 @@ public class VoiceManager : MonoBehaviour
         {
             Debug.LogError("Error al eliminar archivos anteriores: " + ex.Message);
         }
-    }
-
-    public void OnRecordButtonDown()
+    }    public void OnRecordButtonDown()
     {
         if (!isRecording)
         {
+            // Ocultar el diálogo del NPC anterior cuando se comienza a grabar
+            if (npcManager != null)
+            {
+                npcManager.HideNpcDialog();
+            }
+            
+            // Limpiar cualquier grabación anterior
+            recordedClip = null;
             isRecording = true;
             StartCoroutine(StartRecording());
+        }
+        else
+        {
+            Debug.LogWarning("Recording is already in progress.");
         }
     }
 
@@ -145,16 +155,42 @@ public class VoiceManager : MonoBehaviour
             StopRecording();
             StartCoroutine(ProcessRecording());
         }
-    }
-
-    IEnumerator StartRecording()
+        else
+        {
+            Debug.LogWarning("No recording was in progress.");
+        }
+    }    IEnumerator StartRecording()
     {
         Debug.Log("Started recording... Press and hold to continue, release to stop.");
-        recordedClip = Microphone.Start(null, false, 60, 16000); // Max 60 seconds recording
+        
+        // Verificar si hay dispositivos de micrófono disponibles
+        if (Microphone.devices.Length == 0)
+        {
+            Debug.LogError("No microphone devices found!");
+            isRecording = false;
+            yield break;
+        }
+        
+        try
+        {
+            recordedClip = Microphone.Start(null, false, 60, 16000); // Max 60 seconds recording
+            
+            if (recordedClip == null)
+            {
+                Debug.LogError("Failed to start microphone recording!");
+                isRecording = false;
+                yield break;
+            }
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("Error starting microphone: " + e.Message);
+            isRecording = false;
+            yield break;
+        }
+        
         yield return null;
-    }
-
-    void StopRecording()
+    }void StopRecording()
     {
         if (Microphone.IsRecording(null))
         {
@@ -179,27 +215,73 @@ public class VoiceManager : MonoBehaviour
                 recordedClip = null;
             }
         }
-    }
-
-    IEnumerator ProcessRecording()
-    {
-        if (recordedClip != null && recordedClip.length > 0)
-        {
-            // Generar nombre de archivo con timestamp
-            string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
-            
-            // Guardar el archivo WAV
-            byte[] wavData = SavWav.GetWavBytes(recordedClip);
-            lastWavPath = Path.Combine(saveFolderPath, "recording_" + timestamp + ".wav");
-            File.WriteAllBytes(lastWavPath, wavData);
-            Debug.Log("Archivo WAV guardado en: " + lastWavPath);
-            
-            yield return StartCoroutine(SendToWit(wavData, timestamp));
-        }
         else
         {
-            Debug.LogError("No valid recording to process.");
+            Debug.LogWarning("No microphone recording was active.");
+            recordedClip = null;
         }
+    }    IEnumerator ProcessRecording()
+    {
+        // Verificar si hay una grabación válida
+        if (recordedClip == null)
+        {
+            Debug.Log("No recording to process - recording was too short or empty. Sending default message.");
+            SendTranscriptToChatBot("Preguntame si estoy aqui");
+            yield break;
+        }
+        
+        if (recordedClip.length <= 0)
+        {
+            Debug.Log("Recording length is zero - no audio content to process. Sending default message.");
+            SendTranscriptToChatBot("Preguntame si estoy aqui");
+            yield break;
+        }
+        
+        // Verificar si la grabación contiene algo más que silencio
+        if (!HasAudioContent(recordedClip))
+        {
+            Debug.Log("Recording contains only silence - sending default message.");
+            SendTranscriptToChatBot("Preguntame si estoy aqui");
+            yield break;
+        }
+        
+        // Generar nombre de archivo con timestamp
+        string timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+        
+        // Guardar el archivo WAV
+        byte[] wavData = SavWav.GetWavBytes(recordedClip);
+        lastWavPath = Path.Combine(saveFolderPath, "recording_" + timestamp + ".wav");
+        File.WriteAllBytes(lastWavPath, wavData);
+        Debug.Log("Archivo WAV guardado en: " + lastWavPath);
+        
+        yield return StartCoroutine(SendToWit(wavData, timestamp));
+    }
+    
+    private bool HasAudioContent(AudioClip clip)
+    {
+        float[] samples = new float[clip.samples * clip.channels];
+        clip.GetData(samples, 0);
+        
+        float threshold = 0.01f; // Umbral para detectar audio significativo
+        int significantSamples = 0;
+        int totalSamples = samples.Length;
+        
+        // Contar cuántas muestras superan el umbral
+        for (int i = 0; i < totalSamples; i++)
+        {
+            if (Mathf.Abs(samples[i]) > threshold)
+            {
+                significantSamples++;
+            }
+        }
+        
+        // Si al menos el 0.1% de las muestras tienen contenido significativo
+        float significantPercentage = (float)significantSamples / totalSamples;
+        bool hasContent = significantPercentage > 0.001f;
+        
+        Debug.Log($"Audio analysis: {significantSamples}/{totalSamples} significant samples ({significantPercentage:P2}) - Has content: {hasContent}");
+        
+        return hasContent;
     }
 
     IEnumerator SendToWit(byte[] wavData, string timestamp)
