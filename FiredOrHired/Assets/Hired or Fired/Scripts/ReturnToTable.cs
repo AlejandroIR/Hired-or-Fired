@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class ReturnToTable : MonoBehaviour
 {
     private float returnDelay = 5f;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    private XRGrabInteractable grabInteractable;
 
     private float timer = 0f;
     private bool isOnTable = true;
@@ -27,7 +30,7 @@ public class ReturnToTable : MonoBehaviour
 
     void Update()
     {
-        if (!isOnTable)
+        if (!isOnTable && (grabInteractable == null || !grabInteractable.isSelected))
         {
             timer += Time.deltaTime;
             if (timer >= returnDelay)
@@ -39,8 +42,21 @@ public class ReturnToTable : MonoBehaviour
 
     void ReturnToStart()
     {
-        transform.position = initialPosition;
-        transform.rotation = initialRotation;
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+
+            rb.MovePosition(initialPosition);
+            rb.MoveRotation(initialRotation);
+        }
+        else
+        {
+            transform.position = initialPosition;
+            transform.rotation = initialRotation;
+        }
+
         timer = 0f;
         isOnTable = true;
     }
