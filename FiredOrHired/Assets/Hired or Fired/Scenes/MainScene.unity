@@ -6537,7 +6537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 591590105}
   m_Layer: 0
-  m_Name: SpawnPoint
+  m_Name: ChairPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6552,7 +6552,7 @@ Transform:
   m_GameObject: {fileID: 591590104}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9972696, z: 0, w: 0.07384748}
-  m_LocalPosition: {x: 42.975, y: 0.087, z: -11.137}
+  m_LocalPosition: {x: 43.107, y: 0.013, z: -11.525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6616,6 +6616,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4005453065676578, guid: 69e42b2219bea9446b26e1c19e15a866, type: 3}
   m_PrefabInstance: {fileID: 597613727}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &610990959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 610990960}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &610990960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610990959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 39.691, y: 0.087, z: -10.355}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &614197034
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12137,6 +12168,8 @@ MonoBehaviour:
   - {fileID: 901397391}
   - {fileID: 1462316207}
   - {fileID: 88017722}
+  npcEntrancePoint: {fileID: 610990960}
+  npcChairPoint: {fileID: 591590105}
   npcManager: {fileID: 0}
   currentNPCIndex: 0
   currentDocIndex: 0
@@ -24184,6 +24217,7 @@ SceneRoots:
   - {fileID: 7667528657419055431}
   - {fileID: 1084841758}
   - {fileID: 328167673}
+  - {fileID: 610990960}
   - {fileID: 591590105}
   - {fileID: 540493139}
   - {fileID: 309739588}
