@@ -62,7 +62,7 @@ public class PhoneManager : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         if (rb != null)
-            rb.isKinematic = false;
+            rb.isKinematic = true;
     }
 
 
@@ -200,6 +200,9 @@ public class PhoneManager : MonoBehaviour
         yaAgarrado = false;
         confirmacionHecha = false;
         fueAgarradoManualmente = false;
+
+        if (rb != null)
+            rb.isKinematic = true;
 
 
         if (textoUI != null)
