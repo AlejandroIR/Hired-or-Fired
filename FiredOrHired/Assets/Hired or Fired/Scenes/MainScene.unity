@@ -16455,7 +16455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rainClip: {fileID: 8300000, guid: 7868bf7b978f05c4c805a3c83133fad4, type: 3}
-  carClips: []
+  carClips:
+  - {fileID: 8300000, guid: 69c1cb4a5ead8374faa204360a1981fb, type: 3}
   honkClips:
   - {fileID: 8300000, guid: 69c1cb4a5ead8374faa204360a1981fb, type: 3}
   - {fileID: 8300000, guid: 5f90e8c294257d342a78e221bcda8a24, type: 3}
