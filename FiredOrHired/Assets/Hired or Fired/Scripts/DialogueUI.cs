@@ -32,7 +32,7 @@ public class DialogueUI : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        dialoguePanel.SetActive(true);
+        dialoguePanel.SetActive(false);
         responsePanel.SetActive(false);
     }
 
