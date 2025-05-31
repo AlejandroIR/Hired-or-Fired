@@ -3400,6 +3400,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4279366241788220, guid: c16bb121ebad04948852c0449cb0199d, type: 3}
   m_PrefabInstance: {fileID: 354251116}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &363202808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 363202809}
+  m_Layer: 0
+  m_Name: ExitPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &363202809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363202808}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.9972696, z: 0, w: 0.07384748}
+  m_LocalPosition: {x: 39.67, y: 0.013, z: -10.372}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 171.53, z: 0}
 --- !u!1 &373428978
 GameObject:
   m_ObjectHideFlags: 0
@@ -12118,6 +12149,7 @@ MonoBehaviour:
   - {fileID: 88017722}
   npcEntrancePoint: {fileID: 610990960}
   npcChairPoint: {fileID: 591590105}
+  npcExitPoint: {fileID: 363202809}
   npcManager: {fileID: 0}
   currentNPCIndex: 0
   currentDocIndex: 0
@@ -24467,6 +24499,7 @@ SceneRoots:
   - {fileID: 328167673}
   - {fileID: 610990960}
   - {fileID: 591590105}
+  - {fileID: 363202809}
   - {fileID: 540493139}
   - {fileID: 309739588}
   - {fileID: 388299329}

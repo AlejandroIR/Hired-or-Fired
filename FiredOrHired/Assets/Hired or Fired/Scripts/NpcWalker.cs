@@ -10,6 +10,8 @@ public class NpcWalker : MonoBehaviour
 
     private Animator animator;
 
+    public bool playSitAnimationOnArrive = false;
+
     void Start()
     {
         animator = GetComponent<Animator>();

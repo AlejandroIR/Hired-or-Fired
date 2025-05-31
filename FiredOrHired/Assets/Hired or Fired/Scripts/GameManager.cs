@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     [Header("Path Points")]
     public Transform npcEntrancePoint;
     public Transform npcChairPoint;
+    public Transform npcExitPoint;
 
     [Header("Integration")]
     public NpcManager npcManager;
@@ -106,17 +107,30 @@ public class GameManager : MonoBehaviour
     IEnumerator HandleFireDelay()
     {
         yield return new WaitForSeconds(2f);
-
         Destroy(currentNPC);
         Destroy(currentDoc);
         StartCoroutine(SpawnNextNPC());
     }
+
     IEnumerator HandleHireDelay()
     {
-        yield return new WaitForSeconds(2f);
-        Destroy(currentNPC);
-        Destroy(currentDoc);
-        StartCoroutine(SpawnNextNPC());
+
+        yield return new WaitForSeconds(2.25f);
+
+        // Ahora añadimos NpcWalker para que camine a la salida
+        NpcWalker walker = currentNPC.AddComponent<NpcWalker>();
+        walker.target = npcExitPoint;
+        walker.playSitAnimationOnArrive = false;
+        //Vector3 pos = currentNPC.transform.position;
+        //pos.y += 0.3f;
+        //currentNPC.transform.position = pos;
+        walker.OnArrived = () =>
+        {
+            // Aquí destruyes y spawneas el siguiente NPC
+            Destroy(currentNPC);
+            Destroy(currentDoc);
+            StartCoroutine(SpawnNextNPC());
+        };
     }
 
     IEnumerator SpawnNextNPC()
